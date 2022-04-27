@@ -1,4 +1,8 @@
 import styled from 'styled-components'
+import { FacebookIcon } from '../../assets/svgs/FacebookIcon'
+import { InstagramIcon } from '../../assets/svgs/InstagramIcon'
+import { LinkedInIcon } from '../../assets/svgs/LinkedInIcon.tsx'
+import { TwitterIcon } from '../../assets/svgs/TwitterIcon'
 import { BackgroundImage } from '../components/BackgroundImage'
 import { Button } from '../components/Button'
 import { Card } from '../components/Card'
@@ -11,7 +15,7 @@ export function CallCalcPage() {
     const { width } = useDimensions()
 
     return <Container>
-        <Header buttons={width > 500 ?
+        <Header buttons={
             <>
                 <Button buttonColor={{
                     background: COLOR.neutral,
@@ -29,13 +33,17 @@ export function CallCalcPage() {
                         content: COLOR.primary,
                         outline: COLOR.primary
                     }} onClick={() => console.log('Go to plans page...')} content={{ text: 'Planos' }} />
-            </>
-            : <></>}>FaleMais App</Header>
+            </>}>FaleMais App</Header>
         <Main>
             <Card />
             <BackgroundImage />
         </Main>
-        <Footer>© 2022. FaleMais App. All rights reserved</Footer>
+        <Footer buttons={<>
+            <Button onClick={() => console.log('Go to LinkedIn link...')} hasShadow={false} hideInteractivity forceMinWidth content={{ icon: <LinkedInIcon /> }} />
+            <Button onClick={() => console.log('Go to Instagram link...')} hasShadow={false} hideInteractivity forceMinWidth content={{ icon: <InstagramIcon /> }} />
+            <Button onClick={() => console.log('Go to Facebook link...')} hasShadow={false} hideInteractivity forceMinWidth content={{ icon: <FacebookIcon /> }} />
+            <Button onClick={() => console.log('Go to Twitter link...')} hasShadow={false} hideInteractivity forceMinWidth content={{ icon: <TwitterIcon /> }} />
+        </>}>© 2022. FaleMais App. All rights reserved</Footer>
     </Container>
 }
 

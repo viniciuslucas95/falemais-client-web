@@ -1,6 +1,7 @@
 import { useReducer } from 'react'
 import styled from 'styled-components'
 import { COLOR } from '../constants/color.constant'
+import { useDimensions } from '../hooks/useDimensions'
 import { TextField, TextFieldData } from './TextField'
 import { Headline6 } from './Texts'
 
@@ -72,6 +73,7 @@ const textFieldInitialState: TextFieldState = {
 
 export function Card() {
     const [textFieldState, textFieldDispatch] = useReducer(textFieldReducer, textFieldInitialState)
+    const { width } = useDimensions()
 
     function onOriginDddChange(value: string) {
         textFieldDispatch({
@@ -96,13 +98,19 @@ export function Card() {
 
     return <Container>
         <Title style={{ margin: '0 0 32px 0' }}>Cálculo de gastos</Title>
-        <TextFieldContainer>
-            <TextField style={{ margin: '0 16px 0 0' }} label='DDD de Origem' data={textFieldState.originDdd} onChange={onOriginDddChange} />
-            <TextField label='DDD de Destino' data={textFieldState.destinyDdd} onChange={onDestinyDddChange} />
-        </TextFieldContainer>
-        <TextFieldContainer style={{ margin: '32px 0 0 0' }}>
-            <TextField label='Tempo (em minutos)' data={textFieldState.time} onChange={onTimeChange} />
-        </TextFieldContainer>
+        {
+            width > 424 ?
+                <>
+                    <TextFieldContainer>
+                        <TextField style={{ margin: '0 16px 0 0' }} label='DDD de Origem' data={textFieldState.originDdd} onChange={onOriginDddChange} />
+                        <TextField label='DDD de Destino' data={textFieldState.destinyDdd} onChange={onDestinyDddChange} />
+                    </TextFieldContainer>
+                    <TextFieldContainer style={{ margin: '32px 0 0 0' }}>
+                        <TextField label='Tempo (em minutos)' data={textFieldState.time} onChange={onTimeChange} />
+                    </TextFieldContainer></>
+                : null
+        }
+
     </Container>
 }
 

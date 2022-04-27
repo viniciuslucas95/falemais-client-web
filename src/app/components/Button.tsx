@@ -20,6 +20,7 @@ interface CommonProps {
     forceMinWidth?: boolean
     buttonColor?: Color
     hasShadow?: boolean
+    hideInteractivity?: boolean
 }
 
 interface Props extends CommonProps {
@@ -36,10 +37,11 @@ const defaultColor: Color = {
     outline: COLOR.highEmphasis
 }
 
-export function Button({ style, content, buttonColor = defaultColor, forceMinWidth = false, hasShadow = true, onClick }: Props) {
+export function Button({ style, content, buttonColor = defaultColor, forceMinWidth = false, hasShadow = true, onClick, hideInteractivity }: Props) {
     const { icon, text } = content
 
     return <StyledButton
+        hideInteractivity={hideInteractivity ?? false}
         onClick={() => onClick()}
         buttonColor={buttonColor ?? defaultColor} style={style}
         hasShadow={hasShadow}
@@ -85,11 +87,11 @@ const StyledButton = styled.button<IButtonContainer>`
     cursor: pointer;
 
     :hover {
-        background-color: ${({ buttonColor: { backgroundHover } }) => backgroundHover};
+        background-color: ${({ buttonColor: { backgroundHover, background }, hideInteractivity }) => hideInteractivity ? background : backgroundHover};
     }
 
     :active {
-        background-color: ${({ buttonColor: { backgroundActive } }) => backgroundActive};
+        background-color: ${({ buttonColor: { backgroundActive, background }, hideInteractivity }) => hideInteractivity ? background : backgroundActive};
         
     }
 `

@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react'
 import styled from 'styled-components'
 import { COLOR } from '../constants/color.constant'
+import { useDimensions } from '../hooks/useDimensions'
 import { Headline6 } from './Texts'
 
 export const HEADER_SIZE = '48px'
@@ -11,9 +12,11 @@ interface Props {
 }
 
 export function Header({ children, buttons }: PropsWithChildren<Props>) {
+    const { width } = useDimensions()
+
     return <Container>
         <TitleText>{children}</TitleText>
-        {buttons ?
+        {buttons && width > 424 ?
             <ButtonsContainer>
                 {buttons}
             </ButtonsContainer>
