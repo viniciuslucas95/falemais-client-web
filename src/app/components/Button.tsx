@@ -90,6 +90,7 @@ const StyledButton = styled.button<IButtonContainer>`
 
     :active {
         background-color: ${({ buttonColor: { backgroundActive } }) => backgroundActive};
+        
     }
 `
 

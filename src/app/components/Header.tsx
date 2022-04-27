@@ -28,6 +28,7 @@ const Container = styled.header`
     height: ${HEADER_SIZE};
     background-color: ${COLOR.primary};
     padding: 0 32px;
+    box-shadow: 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 20%);
 `
 
 const ButtonsContainer = styled.div`

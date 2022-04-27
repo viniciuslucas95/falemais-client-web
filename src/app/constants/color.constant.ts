@@ -8,5 +8,6 @@ export const COLOR = {
     textFieldContainer: '#E0E0E0',
     neutral: 'white',
     neutralHover: '#E9EDF4',
-    neutralActive: '#D4DBE9'
+    neutralActive: '#D4DBE9',
+    error: '#F44336'
 }
