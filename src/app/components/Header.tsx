@@ -1,7 +1,9 @@
 import { PropsWithChildren } from 'react'
 import styled from 'styled-components'
 import { COLOR } from '../constants/color.constant'
-import { Headline5 } from './Texts'
+import { Headline6 } from './Texts'
+
+export const HEADER_SIZE = '48px'
 
 interface Props {
     children: string
@@ -23,13 +25,15 @@ const Container = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 56px;
+    height: ${HEADER_SIZE};
     background-color: ${COLOR.primary};
     padding: 0 32px;
 `
 
-const ButtonsContainer = styled.div``
+const ButtonsContainer = styled.div`
+    display: flex;
+`
 
-const TitleText = styled(Headline5)`
+const TitleText = styled(Headline6)`
     color: ${COLOR.neutral};
 `

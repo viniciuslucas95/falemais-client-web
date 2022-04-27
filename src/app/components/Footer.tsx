@@ -4,6 +4,8 @@ import { COLOR } from '../constants/color.constant'
 import { useDimensions } from '../hooks/useDimensions'
 import { Body1, Body2 } from './Texts'
 
+export const FOOTER_SIZE = '48px'
+
 interface Props {
     children: string
     buttons?: JSX.Element | JSX.Element[]
@@ -33,7 +35,7 @@ const Container = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    height: 56px;
+    height: ${FOOTER_SIZE};
     background-color: ${COLOR.primary};
     padding: 0 32px;
 `

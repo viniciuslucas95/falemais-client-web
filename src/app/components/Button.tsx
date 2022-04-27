@@ -3,12 +3,12 @@ import styled from 'styled-components'
 import { COLOR } from '../constants/color.constant'
 import { Button as Text } from './Texts'
 
-interface IContent {
+interface Content {
     text?: string
     icon?: JSX.Element
 }
 
-interface IColor {
+interface Color {
     content: string
     background: string
     backgroundHover: string
@@ -16,19 +16,19 @@ interface IColor {
     outline: string
 }
 
-interface ICommonProps {
+interface CommonProps {
     forceMinWidth?: boolean
-    buttonColor?: IColor
+    buttonColor?: Color
     hasShadow?: boolean
 }
 
-interface IProps extends ICommonProps {
-    content: IContent
+interface Props extends CommonProps {
+    content: Content
     style?: React.CSSProperties
     onClick: Function
 }
 
-const defaultColor: IColor = {
+const defaultColor: Color = {
     background: COLOR.primary,
     backgroundHover: COLOR.primaryHover,
     backgroundActive: COLOR.primaryActive,
@@ -36,10 +36,16 @@ const defaultColor: IColor = {
     outline: COLOR.highEmphasis
 }
 
-export function Button({ style, content, buttonColor: color = defaultColor, forceMinWidth = false, hasShadow = true, onClick }: IProps) {
+export function Button({ style, content, buttonColor = defaultColor, forceMinWidth = false, hasShadow = true, onClick }: Props) {
     const { icon, text } = content
 
-    return <StyledButton onClick={() => onClick()} buttonColor={color ?? defaultColor} style={style} hasShadow={hasShadow} forceMinWidth={forceMinWidth} hasIcon={icon ? true : false} hasText={text ? true : false}>
+    return <StyledButton
+        onClick={() => onClick()}
+        buttonColor={buttonColor ?? defaultColor} style={style}
+        hasShadow={hasShadow}
+        forceMinWidth={forceMinWidth}
+        hasIcon={icon ? true : false}
+        hasText={text ? true : false}>
         {
             icon ?
                 <IconContainer hasText={text ? true : false}>
@@ -59,7 +65,7 @@ interface IIconContainer {
     hasText: boolean
 }
 
-interface IButtonContainer extends IIconContainer, Required<ICommonProps> {
+interface IButtonContainer extends IIconContainer, Required<CommonProps> {
     hasIcon: boolean
 }
 
