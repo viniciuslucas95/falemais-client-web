@@ -29,10 +29,7 @@ export function Footer({ children, buttons }: PropsWithChildren<Props>) {
     </Container>
 }
 
-const Container = styled.header`
-    position: absolute;
-    width: 100%;
-    bottom: 0;
+const Container = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
