@@ -1,26 +1,20 @@
-import { PropsWithChildren } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { COLOR } from '../constants/color.constant'
-import { useDimensions } from '../hooks/useDimensions'
-import { Headline6 } from './Texts'
+import logo from '../../assets/images/logo.png'
 
-export const HEADER_SIZE = '48px'
+const HEADER_SIZE = '48px'
 
-interface Props {
-    children: string
-    buttons?: JSX.Element | JSX.Element[]
-}
+export function Header() {
+    const pathname = window.location.pathname
 
-export function Header({ children, buttons }: PropsWithChildren<Props>) {
-    const { width } = useDimensions()
-
+    // Update do react router
     return <Container>
-        <TitleText>{children}</TitleText>
-        {buttons && width > 424 ?
-            <ButtonsContainer>
-                {buttons}
-            </ButtonsContainer>
-            : null}
+        <Logo src={logo} alt='telzir logo' />
+        <Nav>
+            <NavItem isSelected={pathname === '/' ? true : false}><NavText isSelected={pathname === '/' ? true : false}>Início</NavText></NavItem>
+            <NavItem style={{ margin: '0 16px' }} isSelected={pathname === '/tariffs' ? true : false}><NavText isSelected={pathname === '/tariffs' ? true : false}>Tarifas</NavText></NavItem>
+            <NavItem isSelected={pathname === '/plans' ? true : false}><NavText isSelected={pathname === '/plans' ? true : false}>Planos</NavText></NavItem>
+        </Nav>
     </Container>
 }
 
@@ -29,15 +23,55 @@ const Container = styled.header`
     justify-content: space-between;
     align-items: center;
     height: ${HEADER_SIZE};
-    background-color: ${COLOR.primary};
+    background-color: ${COLOR.neutral};
     padding: 0 32px;
-    box-shadow: 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 20%);
+    border-width: 0 0 1px 0;
+    border-color: ${COLOR.textFieldContainer};
+    border-style: solid;
 `
 
-const ButtonsContainer = styled.div`
+const Logo = styled.img`
+    height: 36px;
+    image-rendering: optimizeQuality;
+`
+
+const Nav = styled.nav`
     display: flex;
+    height: 100%;
 `
 
-const TitleText = styled(Headline6)`
-    color: ${COLOR.neutral};
+interface SelectProp {
+    isSelected: boolean
+}
+
+const NavItem = styled.div<SelectProp>`
+    height: 100%;
+    padding: 0 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    ${({ isSelected }) => isSelected ? css`
+        ::after{
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            border-radius: 1px;
+            background-color: ${COLOR.primary};
+            bottom: 0;
+            left: 0;
+        }
+    ` : null};    
+`
+
+const NavText = styled.span<SelectProp>`
+    display: inline-block;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1.25px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: ${({ isSelected }) => isSelected ? COLOR.primary : COLOR.disabled};
 `

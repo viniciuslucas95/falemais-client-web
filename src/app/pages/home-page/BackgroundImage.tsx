@@ -1,12 +1,11 @@
 import styled from 'styled-components'
-import bgImage from '../../../assets/images/bg.webp'
+import bgImage from '../../../assets/images/background.jpg'
 
 export function BackgroundImage() {
     return <>
         <ImageContainer>
             <StyledImage src={bgImage} alt='background image' />
         </ImageContainer>
-        <DarkLayer />
     </>
 }
 
@@ -23,14 +22,4 @@ const StyledImage = styled.img`
     width: 100%;
     height: 100%;
     object-fit: cover;
-`
-
-const DarkLayer = styled.div`
-    position: absolute;
-    left:0;
-    top:0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.1);
-    z-index: -1;
 `

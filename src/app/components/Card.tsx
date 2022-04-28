@@ -115,7 +115,7 @@ export function Card() {
                     </TextFieldContainer></>
                 : null
         }
-
+        <Separator />
     </Container>
 }
 
@@ -132,4 +132,12 @@ const TextFieldContainer = styled.div`
 
 const Title = styled(Headline6)`
     color: ${COLOR.highEmphasis};
+`
+
+const Separator = styled.div`
+    width: 100%;
+    height: 1px;
+    margin: 32px 0;
+    padding: 0 32px;
+    background-color: ${COLOR.textFieldContainer};
 `
