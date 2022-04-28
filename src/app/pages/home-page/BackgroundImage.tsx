@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import bgImage from '../../assets/images/bg.webp'
+import bgImage from '../../../assets/images/bg.webp'
 
 export function BackgroundImage() {
     return <>

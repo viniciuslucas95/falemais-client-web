@@ -1,5 +1,5 @@
-import { CallCalcPage } from './pages/CallCalcPage'
+import { HomePage } from './pages/home-page/HomePage'
 
 export function App() {
-  return <CallCalcPage />
+  return <HomePage />
 }

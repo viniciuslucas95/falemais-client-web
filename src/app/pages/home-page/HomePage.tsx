@@ -1,17 +1,17 @@
 import styled from 'styled-components'
-import { FacebookIcon } from '../../assets/svgs/FacebookIcon'
-import { InstagramIcon } from '../../assets/svgs/InstagramIcon'
-import { LinkedInIcon } from '../../assets/svgs/LinkedInIcon.tsx'
-import { TwitterIcon } from '../../assets/svgs/TwitterIcon'
-import { BackgroundImage } from '../components/BackgroundImage'
-import { Button } from '../components/Button'
-import { Card } from '../components/Card'
-import { Footer, FOOTER_SIZE } from '../components/Footer'
-import { Header, HEADER_SIZE } from '../components/Header'
-import { COLOR } from '../constants/color.constant'
-import { useDimensions } from '../hooks/useDimensions'
+import { FacebookIcon } from '../../../assets/svgs/FacebookIcon'
+import { InstagramIcon } from '../../../assets/svgs/InstagramIcon'
+import { LinkedInIcon } from '../../../assets/svgs/LinkedInIcon.tsx'
+import { TwitterIcon } from '../../../assets/svgs/TwitterIcon'
+import { BackgroundImage } from './BackgroundImage'
+import { Button } from '../../components/Button'
+import { Card } from '../../components/Card'
+import { Footer, FOOTER_SIZE } from '../../components/Footer'
+import { Header, HEADER_SIZE } from '../../components/Header'
+import { COLOR } from '../../constants/color.constant'
+import { useDimensions } from '../../hooks/useDimensions'
 
-export function CallCalcPage() {
+export function HomePage() {
     const { width } = useDimensions()
 
     return <Container>

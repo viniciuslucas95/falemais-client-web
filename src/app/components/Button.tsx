@@ -4,7 +4,7 @@ import { COLOR } from '../constants/color.constant'
 import { Button as Text } from './Texts'
 
 interface Content {
-    text?: string
+    text?: string | JSX.Element
     icon?: JSX.Element
 }
 
@@ -21,12 +21,15 @@ interface CommonProps {
     buttonColor?: Color
     hasShadow?: boolean
     hideInteractivity?: boolean
+    justifyContent?: string
 }
 
 interface Props extends CommonProps {
     content: Content
     style?: React.CSSProperties
-    onClick: Function
+    onClick: () => void
+    onBlur?: () => void
+    onFocus?: () => void
 }
 
 const defaultColor: Color = {
@@ -37,10 +40,13 @@ const defaultColor: Color = {
     outline: COLOR.highEmphasis
 }
 
-export function Button({ style, content, buttonColor = defaultColor, forceMinWidth = false, hasShadow = true, onClick, hideInteractivity }: Props) {
+export function Button({ justifyContent, onFocus, style, onBlur, content, buttonColor = defaultColor, forceMinWidth = false, hasShadow = true, onClick, hideInteractivity }: Props) {
     const { icon, text } = content
 
     return <StyledButton
+        justifyContent={justifyContent ?? 'center'}
+        onBlur={onBlur}
+        onFocus={onFocus}
         hideInteractivity={hideInteractivity ?? false}
         onClick={() => onClick()}
         buttonColor={buttonColor ?? defaultColor} style={style}
@@ -57,7 +63,9 @@ export function Button({ style, content, buttonColor = defaultColor, forceMinWid
         }
         {
             text ?
-                <Text>{text}</Text>
+                typeof text === 'string' ?
+                    <Text>{text}</Text>
+                    : text
                 : null
         }
     </StyledButton>
@@ -76,7 +84,7 @@ const StyledButton = styled.button<IButtonContainer>`
     height: 36px;
     width: ${({ forceMinWidth }) => forceMinWidth ? '36px' : 'auto'};
     padding: ${({ hasIcon, hasText }) => hasIcon && hasText ? '0 16px 0 12px' : !hasIcon && hasText ? '0 16px' : '0'};
-    justify-content: center;
+    justify-content: ${({ justifyContent }) => justifyContent};
     align-items: center;
     border-radius: 4px;
     border-width: 0px;

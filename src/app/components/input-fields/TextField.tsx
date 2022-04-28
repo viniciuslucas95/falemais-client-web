@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { COLOR } from '../constants/color.constant'
-import { Caption } from './Texts'
+import { COLOR } from '../../constants/color.constant'
+import { Caption } from '../Texts'
+import { Label } from './Label'
 
 interface TextFieldHelpText {
     text: string,
@@ -35,9 +36,7 @@ export function TextField({ width, style, label, data, onChange }: Props) {
             value={value}
             onChange={({ target: { value } }) => onChange(value)} />
         {helpText ? <HelperText hasError={error}>{helpText.text}</HelperText> : null}
-        <LabelContainer>
-            <LabelText isFocused={isFocused} hasError={error}>{label}</LabelText>
-        </LabelContainer>
+        <Label hasError={error} isFocused={isFocused}>{label}</Label>
     </Container>
 }
 
@@ -60,10 +59,12 @@ const Container = styled.div<WidthProps>`
 
 const StyledTextField = styled.input<ErrorProps & FocusProps>`
     outline-color: ${({ hasError }) => hasError ? COLOR.error : COLOR.primary};
-    padding: 10px 16px;
+    height: 48px;
+    padding: 4px 16px 0px 16px;
     width: 100%;
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
     color: ${({ isFocused }) => isFocused ? COLOR.highEmphasis : COLOR.mediumEmphasis};
     border-color: ${({ hasError }) => hasError ? COLOR.error : COLOR.disabled};
     border-radius: 4px;
@@ -78,17 +79,4 @@ const HelperText = styled(Caption) <ErrorProps>`
     transform: translateY(100%);
     padding: 4px 16px;
     color: ${({ hasError }) => hasError ? COLOR.error : COLOR.disabled};
-`
-
-const LabelContainer = styled.div`
-    position: absolute;
-    left: 12px;
-    top: 0;
-    transform: translateY(-50%);
-    padding: 0 4px;
-    background-color: ${COLOR.neutral};
-`
-
-const LabelText = styled(Caption) <ErrorProps & FocusProps>`
-    color: ${({ hasError, isFocused }) => hasError ? COLOR.error : isFocused ? COLOR.primary : COLOR.disabled}
 `

@@ -2,7 +2,8 @@ import { useReducer } from 'react'
 import styled from 'styled-components'
 import { COLOR } from '../constants/color.constant'
 import { useDimensions } from '../hooks/useDimensions'
-import { TextField, TextFieldData } from './TextField'
+import { SelectField } from './input-fields/SelectField'
+import { TextField, TextFieldData } from './input-fields/TextField'
 import { Headline6 } from './Texts'
 
 enum ActionType {
@@ -21,6 +22,9 @@ interface TextFieldState {
     destinyDdd: TextFieldData,
     time: TextFieldData
 }
+
+// TESTING PLANS
+const planOptions = ['FaleMais 30', 'FaleMais 60', 'FaleMais 120']
 
 function textFieldReducer(state: TextFieldState, action: TextFieldAction) {
     const { type, payload } = action
@@ -106,7 +110,8 @@ export function Card() {
                         <TextField label='DDD de Destino' data={textFieldState.destinyDdd} onChange={onDestinyDddChange} />
                     </TextFieldContainer>
                     <TextFieldContainer style={{ margin: '32px 0 0 0' }}>
-                        <TextField label='Tempo (em minutos)' data={textFieldState.time} onChange={onTimeChange} />
+                        <TextField style={{ margin: '0 16px 0 0' }} label='Tempo (em minutos)' data={textFieldState.time} onChange={onTimeChange} />
+                        <SelectField label='Plano' options={planOptions} />
                     </TextFieldContainer></>
                 : null
         }
