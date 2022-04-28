@@ -1,20 +1,26 @@
 import styled, { css } from 'styled-components'
 import { COLOR } from '../constants/color.constant'
 import logo from '../../assets/images/logo.png'
+import { useDimensions } from '../hooks/useDimensions'
 
 const HEADER_SIZE = '48px'
 
 export function Header() {
+    const { width } = useDimensions()
     const pathname = window.location.pathname
 
     // Update do react router
     return <Container>
         <Logo src={logo} alt='telzir logo' />
-        <Nav>
-            <NavItem isSelected={pathname === '/' ? true : false}><NavText isSelected={pathname === '/' ? true : false}>Início</NavText></NavItem>
-            <NavItem style={{ margin: '0 16px' }} isSelected={pathname === '/tariffs' ? true : false}><NavText isSelected={pathname === '/tariffs' ? true : false}>Tarifas</NavText></NavItem>
-            <NavItem isSelected={pathname === '/plans' ? true : false}><NavText isSelected={pathname === '/plans' ? true : false}>Planos</NavText></NavItem>
-        </Nav>
+        {
+            width > 426 ?
+                <Nav>
+                    <NavItem isSelected={pathname === '/' ? true : false}><NavText isSelected={pathname === '/' ? true : false}>Início</NavText></NavItem>
+                    <NavItem style={{ margin: '0 16px' }} isSelected={pathname === '/tariffs' ? true : false}><NavText isSelected={pathname === '/tariffs' ? true : false}>Tarifas</NavText></NavItem>
+                    <NavItem isSelected={pathname === '/plans' ? true : false}><NavText isSelected={pathname === '/plans' ? true : false}>Planos</NavText></NavItem>
+                </Nav>
+                : null
+        }
     </Container>
 }
 

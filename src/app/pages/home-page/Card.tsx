@@ -1,10 +1,10 @@
 import { useReducer } from 'react'
 import styled from 'styled-components'
-import { COLOR } from '../constants/color.constant'
-import { useDimensions } from '../hooks/useDimensions'
-import { SelectField } from './input-fields/SelectField'
-import { TextField, TextFieldData } from './input-fields/TextField'
-import { Headline6 } from './Texts'
+import { COLOR } from '../../constants/color.constant'
+import { useDimensions } from '../../hooks/useDimensions'
+import { SelectField } from '../../components/input-fields/SelectField'
+import { TextField, TextFieldData } from '../../components/input-fields/TextField'
+import { Headline6 } from '../../components/Texts'
 
 enum ActionType {
     SET_ORIGIN_DDD = 'set-origin-ddd',
@@ -21,6 +21,10 @@ interface TextFieldState {
     originDdd: TextFieldData,
     destinyDdd: TextFieldData,
     time: TextFieldData
+}
+
+interface Props {
+    style?: React.CSSProperties
 }
 
 // TESTING PLANS
@@ -75,7 +79,7 @@ const textFieldInitialState: TextFieldState = {
     time: { value: '' }
 }
 
-export function Card() {
+export function Card({ style }: Props) {
     const [textFieldState, textFieldDispatch] = useReducer(textFieldReducer, textFieldInitialState)
     const { width } = useDimensions()
 
@@ -100,11 +104,11 @@ export function Card() {
         })
     }
 
-    return <Container>
-        <Title style={{ margin: '0 0 32px 0' }}>Cálculo de gastos</Title>
+    return <Container style={style}>
         {
-            width > 424 ?
+            width > 426 ?
                 <>
+                    <Headline6 style={{ color: COLOR.highEmphasis, margin: '0 0 32px 0' }}>Veja o quanto você economiza</Headline6>
                     <TextFieldContainer>
                         <TextField style={{ margin: '0 16px 0 0' }} label='DDD de Origem' data={textFieldState.originDdd} onChange={onOriginDddChange} />
                         <TextField label='DDD de Destino' data={textFieldState.destinyDdd} onChange={onDestinyDddChange} />
@@ -113,7 +117,14 @@ export function Card() {
                         <TextField style={{ margin: '0 16px 0 0' }} label='Tempo (em minutos)' data={textFieldState.time} onChange={onTimeChange} />
                         <SelectField label='Plano' options={planOptions} />
                     </TextFieldContainer></>
-                : null
+                :
+                <>
+                    <Headline6 style={{ color: COLOR.highEmphasis, margin: '0 0 32px 0' }}>Veja o quanto você economiza</Headline6>
+                    <TextField width='100%' style={{ margin: '0 0 32px 0' }} label='DDD de Origem' data={textFieldState.originDdd} onChange={onOriginDddChange} />
+                    <TextField width='100%' style={{ margin: '0 0 32px 0' }} label='DDD de Destino' data={textFieldState.destinyDdd} onChange={onDestinyDddChange} />
+                    <TextField width='100%' style={{ margin: '0 0 32px 0' }} label='Tempo (em minutos)' data={textFieldState.time} onChange={onTimeChange} />
+                    <SelectField width='100%' label='Plano' options={planOptions} />
+                </>
         }
         <Separator />
     </Container>
@@ -122,16 +133,19 @@ export function Card() {
 const Container = styled.div`
     padding: 32px;
     background-color: ${COLOR.neutral};
+    width: fit-content;
     border-radius: 4px;
     box-shadow: 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 20%);
+
+    @media screen and (max-width: 426px){
+        width: 100%;
+        padding: 0 32px;
+        box-shadow: none;
+    }
 `
 
 const TextFieldContainer = styled.div`
     display: flex;
-`
-
-const Title = styled(Headline6)`
-    color: ${COLOR.highEmphasis};
 `
 
 const Separator = styled.div`
