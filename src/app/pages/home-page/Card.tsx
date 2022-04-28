@@ -5,6 +5,7 @@ import { useDimensions } from '../../hooks/useDimensions'
 import { SelectField } from '../../components/input-fields/SelectField'
 import { TextField, TextFieldData } from '../../components/input-fields/TextField'
 import { Body2, Headline6, Subtitle2 } from '../../components/Texts'
+import { GetPlanDto } from '../../dto/get-plans.dto'
 
 enum ActionType {
     SET_ORIGIN_DDD = 'set-origin-ddd',
@@ -25,10 +26,8 @@ interface TextFieldState {
 
 interface Props {
     style?: React.CSSProperties
+    plans: Omit<GetPlanDto, 'id'>[]
 }
-
-// TESTING PLANS
-const planOptions = ['FaleMais 30', 'FaleMais 60', 'FaleMais 120']
 
 function textFieldReducer(state: TextFieldState, action: TextFieldAction) {
     const { type, payload } = action
@@ -79,7 +78,7 @@ const textFieldInitialState: TextFieldState = {
     time: { value: '' }
 }
 
-export function Card({ style }: Props) {
+export function Card({ style, plans }: Props) {
     const [textFieldState, textFieldDispatch] = useReducer(textFieldReducer, textFieldInitialState)
     const { width } = useDimensions()
 
@@ -115,7 +114,7 @@ export function Card({ style }: Props) {
                     </TextFieldContainer>
                     <TextFieldContainer style={{ margin: '32px 0 0 0' }}>
                         <TextField style={{ margin: '0 16px 0 0' }} label='Tempo (em minutos)' data={textFieldState.time} onChange={onTimeChange} />
-                        <SelectField label='Plano' options={planOptions} />
+                        <SelectField label='Plano' options={plans.map(plan => plan.name)} />
                     </TextFieldContainer>
                     <Separator />
                     <TitlesContainer>
@@ -141,7 +140,7 @@ export function Card({ style }: Props) {
                     <TextField width='100%' style={{ margin: '0 0 32px 0' }} label='DDD de Origem' data={textFieldState.originDdd} onChange={onOriginDddChange} />
                     <TextField width='100%' style={{ margin: '0 0 32px 0' }} label='DDD de Destino' data={textFieldState.destinyDdd} onChange={onDestinyDddChange} />
                     <TextField width='100%' style={{ margin: '0 0 32px 0' }} label='Tempo (em minutos)' data={textFieldState.time} onChange={onTimeChange} />
-                    <SelectField width='100%' label='Plano' options={planOptions} />
+                    <SelectField width='100%' label='Plano' options={plans.map(plan => plan.name)} />
                     <Separator />
                     <TitlesContainer>
                         <TableTitleContainer style={{ borderRadius: '4px 0 0 0' }}>
@@ -153,10 +152,10 @@ export function Card({ style }: Props) {
                     </TitlesContainer>
                     <TitlesContainer>
                         <TableTextContainer style={{ borderRadius: '0 0 0 4px' }}>
-                            <TableText>R$ 28,00</TableText>
+                            <TableText>R$ 0,00</TableText>
                         </TableTextContainer>
                         <TableTextContainer style={{ borderRadius: '0 4px 0 4px' }}>
-                            <TableText>R$ 45,00</TableText>
+                            <TableText>R$ 0,00</TableText>
                         </TableTextContainer>
                     </TitlesContainer>
                 </>

@@ -68,6 +68,7 @@ const NavItem = styled.div<SelectProp>`
             background-color: ${COLOR.primary};
             bottom: 0;
             left: 0;
+            margin-bottom: -1px;
         }
     ` : null};    
 `

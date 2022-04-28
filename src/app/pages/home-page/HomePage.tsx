@@ -2,14 +2,38 @@ import styled from 'styled-components'
 import { Card } from './Card'
 import { Footer } from '../../components/footer/Footer'
 import { Header } from '../../components/Header'
-import { Headline3, Headline4, Headline5, Headline6, Subtitle1, Subtitle2 } from '../../components/Texts'
+import { Headline3, Headline4, Subtitle1, Subtitle2 } from '../../components/Texts'
 import { COLOR } from '../../constants/color.constant'
 import bgImage1920 from '../../../assets/images/background-1920.png'
 import bgImage1440 from '../../../assets/images/background-1440.png'
 import { useDimensions } from '../../hooks/useDimensions'
+import { useEffect, useState } from 'react'
+import { TariffsService } from '../../services/tariffs/tariffs.service'
+import { PlansService } from '../../services/plans/plans.service'
+import { GetPlanDto } from '../../dto/get-plans.dto'
+import { GetTariffDto } from '../../dto/get-tariff.dto'
 
-export function HomePage() {
+interface Props {
+    tariffsService: TariffsService,
+    plansService: PlansService
+}
+
+export function HomePage({ tariffsService, plansService }: Props) {
     const { width } = useDimensions()
+    const [plans, setPlans] = useState<GetPlanDto[]>([])
+    const [tariffs, setTariffs] = useState<GetTariffDto[]>([])
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const [tariffsResult, plansResult] = await Promise.all<[any, any]>([tariffsService.find(), plansService.find()])
+                setPlans(plansResult.data)
+                setTariffs(tariffsResult.data)
+            } catch (err) {
+                // handle error
+            }
+        })()
+    }, [])
 
     return <Container>
         <Header />
@@ -29,7 +53,7 @@ export function HomePage() {
                 }
 
             </TextsContainer>
-            <Card style={{ margin: width <= 1220 && width > 1024 ? '48px 0 0 0' : width <= 1024 && width > 700 ? '32px 0 0 0' : width < 700 && width > 424 ? '32px auto' : width <= 424 ? '32px 0 0 0' : '64px 0 0 0' }} />
+            <Card plans={plans.map(({ name, bonus }) => { return { name, bonus } })} style={{ margin: width <= 1220 && width > 1024 ? '48px 0 0 0' : width <= 1024 && width > 700 ? '32px 0 0 0' : width < 700 && width > 424 ? '32px auto' : width <= 424 ? '32px 0 0 0' : '64px 0 0 0' }} />
         </Main>
         <Footer />
     </Container>
