@@ -13,9 +13,10 @@ interface WidthProps {
 interface Props extends WidthProps {
     options: string[]
     label: string
+    style?: React.CSSProperties
 }
 
-export function SelectField({ options, width, label }: Props) {
+export function SelectField({ style, options, width, label }: Props) {
     const [isFocused, setIsFocused] = useState(false)
     const [plan, setPlan] = useState(options[0])
 
@@ -28,6 +29,7 @@ export function SelectField({ options, width, label }: Props) {
     }
 
     return <Container
+        style={style}
         width={width ?? '160px'}
         onBlur={(e) => handleBlur(e)}
     >

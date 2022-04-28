@@ -4,7 +4,7 @@ import { COLOR } from '../../constants/color.constant'
 import { useDimensions } from '../../hooks/useDimensions'
 import { SelectField } from '../../components/input-fields/SelectField'
 import { TextField, TextFieldData } from '../../components/input-fields/TextField'
-import { Headline6 } from '../../components/Texts'
+import { Body2, Headline6, Subtitle2 } from '../../components/Texts'
 
 enum ActionType {
     SET_ORIGIN_DDD = 'set-origin-ddd',
@@ -116,7 +116,25 @@ export function Card({ style }: Props) {
                     <TextFieldContainer style={{ margin: '32px 0 0 0' }}>
                         <TextField style={{ margin: '0 16px 0 0' }} label='Tempo (em minutos)' data={textFieldState.time} onChange={onTimeChange} />
                         <SelectField label='Plano' options={planOptions} />
-                    </TextFieldContainer></>
+                    </TextFieldContainer>
+                    <Separator />
+                    <TitlesContainer>
+                        <TableTitleContainer style={{ borderRadius: '4px 0 0 0' }}>
+                            <TableTitle >Com plano</TableTitle>
+                        </TableTitleContainer>
+                        <TableTitleContainer style={{ borderRadius: '0 4px 0 0' }}>
+                            <TableTitle >Sem plano</TableTitle>
+                        </TableTitleContainer>
+                    </TitlesContainer>
+                    <TitlesContainer>
+                        <TableTextContainer style={{ borderRadius: '0 0 0 4px' }}>
+                            <TableText>R$ 28,00</TableText>
+                        </TableTextContainer>
+                        <TableTextContainer style={{ borderRadius: '0 4px 0 4px' }}>
+                            <TableText>R$ 45,00</TableText>
+                        </TableTextContainer>
+                    </TitlesContainer>
+                </>
                 :
                 <>
                     <Headline6 style={{ color: COLOR.highEmphasis, margin: '0 0 32px 0' }}>Veja o quanto você economiza</Headline6>
@@ -124,9 +142,25 @@ export function Card({ style }: Props) {
                     <TextField width='100%' style={{ margin: '0 0 32px 0' }} label='DDD de Destino' data={textFieldState.destinyDdd} onChange={onDestinyDddChange} />
                     <TextField width='100%' style={{ margin: '0 0 32px 0' }} label='Tempo (em minutos)' data={textFieldState.time} onChange={onTimeChange} />
                     <SelectField width='100%' label='Plano' options={planOptions} />
+                    <Separator />
+                    <TitlesContainer>
+                        <TableTitleContainer style={{ borderRadius: '4px 0 0 0' }}>
+                            <TableTitle >Com plano</TableTitle>
+                        </TableTitleContainer>
+                        <TableTitleContainer style={{ borderRadius: '0 4px 0 0' }}>
+                            <TableTitle >Sem plano</TableTitle>
+                        </TableTitleContainer>
+                    </TitlesContainer>
+                    <TitlesContainer>
+                        <TableTextContainer style={{ borderRadius: '0 0 0 4px' }}>
+                            <TableText>R$ 28,00</TableText>
+                        </TableTextContainer>
+                        <TableTextContainer style={{ borderRadius: '0 4px 0 4px' }}>
+                            <TableText>R$ 45,00</TableText>
+                        </TableTextContainer>
+                    </TitlesContainer>
                 </>
         }
-        <Separator />
     </Container>
 }
 
@@ -154,4 +188,33 @@ const Separator = styled.div`
     margin: 32px 0;
     padding: 0 32px;
     background-color: ${COLOR.textFieldContainer};
+`
+
+const TitlesContainer = styled.div`
+    display: flex;
+    justify-content: stretch;
+`
+
+const TableTitleContainer = styled.div`
+    display: flex;
+    width: 100%;
+    align-items: center;
+    background-color: ${COLOR.primary};
+    padding: 16px;
+`
+
+const TableTitle = styled(Subtitle2)`
+    color: ${COLOR.neutral};
+`
+
+const TableTextContainer = styled.div`
+    display: flex;
+    width: 100%;
+    align-items: center;
+    background-color: ${COLOR.textFieldContainer};
+    padding: 16px;
+`
+
+const TableText = styled(Body2)`
+    color: ${COLOR.mediumEmphasis}
 `
