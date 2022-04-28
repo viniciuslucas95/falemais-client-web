@@ -46,7 +46,10 @@ export function SelectField({ options, width, label }: Props) {
                         justifyContent='flex-start'
                         content={{ text: <Body2>{option}</Body2> }}
                         key={index}
-                        onClick={() => setPlan(option)}
+                        onClick={() => {
+                            setPlan(option)
+                            setIsFocused(false)
+                        }}
                         hasShadow={false}
                         buttonColor={{
                             background: COLOR.neutral,
