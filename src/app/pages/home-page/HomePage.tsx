@@ -1,40 +1,12 @@
 import styled from 'styled-components'
 import { Card } from './card/Card'
-import { Footer } from '../../components/footer/Footer'
-import { Header } from '../../components/Header'
 import { COLOR } from '../../constants/color.constant'
 import bgImage1920 from '../../../assets/images/background-1920.png'
 import bgImage1440 from '../../../assets/images/background-1440.png'
-import { useEffect, useState } from 'react'
-import { TariffsService } from '../../services/tariffs/tariffs.service'
-import { PlansService } from '../../services/plans/plans.service'
-import { GetPlanDto } from '../../dto/get-plans.dto'
-import { GetTariffDto } from '../../dto/get-tariff.dto'
+import { PageContainer, PageProps } from '../PageContainer'
 
-interface Props {
-    tariffsService: TariffsService,
-    plansService: PlansService
-}
-
-export function HomePage({ tariffsService, plansService }: Props) {
-    const [plans, setPlans] = useState<GetPlanDto[]>([])
-    const [tariffs, setTariffs] = useState<GetTariffDto[]>([])
-
-    useEffect(() => {
-        (async () => {
-            try {
-                const [tariffsResult, plansResult] = await Promise.all<[any, any]>([tariffsService.find(), plansService.find()])
-                setPlans(plansResult.data)
-                setTariffs(tariffsResult.data)
-            } catch (err) {
-                // handle error properly
-                console.error(err)
-            }
-        })()
-    }, [])
-
-    return <Container>
-        <Header />
+export function HomePage({ plans, tariffs }: PageProps) {
+    return <PageContainer>
         <Main>
             <TextsContainer>
                 <Title>Conheça os planos FaleMais</Title>
@@ -42,11 +14,8 @@ export function HomePage({ tariffsService, plansService }: Props) {
             </TextsContainer>
             <StyledCard tariffs={tariffs} plans={plans} />
         </Main>
-        <Footer />
-    </Container>
+    </PageContainer>
 }
-
-const Container = styled.div``
 
 const Main = styled.main`
     padding: 32px 160px;
@@ -89,6 +58,7 @@ const Main = styled.main`
         padding: 32px 0;
     }
 `
+
 const TextsContainer = styled.div`
     width: 400px;
 

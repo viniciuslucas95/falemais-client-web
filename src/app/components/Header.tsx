@@ -2,11 +2,13 @@ import styled, { css } from 'styled-components'
 import { COLOR } from '../constants/color.constant'
 import logo from '../../assets/images/logo.png'
 import { useDimensions } from '../hooks/useDimensions'
+import { useNavigate, Link } from "react-router-dom";
 
 const HEADER_SIZE = '48px'
 
 export function Header() {
     const { width } = useDimensions()
+    const navigate = useNavigate()
     const pathname = window.location.pathname
 
     return <Container>
@@ -14,9 +16,9 @@ export function Header() {
         {
             width > 426 ?
                 <Nav>
-                    <NavItem isSelected={pathname === '/' ? true : false}><NavText isSelected={pathname === '/' ? true : false}>Início</NavText></NavItem>
-                    <NavItem style={{ margin: '0 16px' }} isSelected={pathname === '/tariffs' ? true : false}><NavText isSelected={pathname === '/tariffs' ? true : false}>Tarifas</NavText></NavItem>
-                    <NavItem isSelected={pathname === '/plans' ? true : false}><NavText isSelected={pathname === '/plans' ? true : false}>Planos</NavText></NavItem>
+                    <NavItem to='/' isSelected={pathname === '/' ? true : false}><NavText isSelected={pathname === '/' ? true : false}>Início</NavText></NavItem>
+                    <NavItem to='/tariffs' style={{ margin: '0 16px' }} isSelected={pathname === '/tariffs' ? true : false}><NavText isSelected={pathname === '/tariffs' ? true : false}>Tarifas</NavText></NavItem>
+                    <NavItem to='/plans' isSelected={pathname === '/plans' ? true : false}><NavText isSelected={pathname === '/plans' ? true : false}>Planos</NavText></NavItem>
                 </Nav>
                 : null
         }
@@ -49,13 +51,14 @@ const Nav = styled.nav`
     height: 100%;
 `
 
-const NavItem = styled.div<SelectProp>`
+const NavItem = styled(Link) <SelectProp>`
     height: 100%;
     padding: 0 8px;
     position: relative;
     display: flex;
     align-items: center;
     cursor: pointer;
+    text-decoration: none;
 
     ${({ isSelected }) => isSelected ? css`
         ::after{
