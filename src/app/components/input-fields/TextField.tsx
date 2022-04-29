@@ -19,15 +19,15 @@ interface Props {
     data: TextFieldData
     onChange: (value: string) => void
     style?: React.CSSProperties
-    width?: string
+    className?: string
 }
 
-export function TextField({ width, style, label, data, onChange }: Props) {
+export function TextField({ className, style, label, data, onChange }: Props) {
     const [isFocused, setIsFocused] = useState(false)
     const { value, helpText } = data
     const error = helpText !== undefined ? (helpText.error ?? false) : false
 
-    return <Container width={width ?? '160px'} style={style}>
+    return <Container className={className} style={style}>
         <StyledTextField
             isFocused={isFocused}
             hasError={error}
@@ -48,13 +48,8 @@ interface FocusProps {
     isFocused: boolean
 }
 
-interface WidthProps {
-    width: string
-}
-
-const Container = styled.div<WidthProps>`
+const Container = styled.div`
     position: relative;
-    width: ${({ width }) => width};
 `
 
 const StyledTextField = styled.input<ErrorProps & FocusProps>`

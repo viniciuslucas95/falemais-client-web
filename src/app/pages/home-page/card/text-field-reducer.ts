@@ -1,4 +1,4 @@
-import { TextFieldData } from "../../components/input-fields/TextField"
+import { TextFieldData } from "../../../components/input-fields/TextField"
 
 export enum ActionType {
     SET_ORIGIN_DDD = 'set-origin-ddd',

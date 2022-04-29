@@ -1,8 +1,7 @@
 import styled from 'styled-components'
-import { Card } from './Card'
+import { Card } from './card/Card'
 import { Footer } from '../../components/footer/Footer'
 import { Header } from '../../components/Header'
-import { Headline3, Headline4, Subtitle1, Subtitle2 } from '../../components/Texts'
 import { COLOR } from '../../constants/color.constant'
 import bgImage1920 from '../../../assets/images/background-1920.png'
 import bgImage1440 from '../../../assets/images/background-1440.png'
@@ -30,7 +29,8 @@ export function HomePage({ tariffsService, plansService }: Props) {
                 setPlans(plansResult.data)
                 setTariffs(tariffsResult.data)
             } catch (err) {
-                // handle error
+                // handle error properly
+                console.error(err)
             }
         })()
     }, [])
@@ -39,21 +39,10 @@ export function HomePage({ tariffsService, plansService }: Props) {
         <Header />
         <Main>
             <TextsContainer>
-                {
-                    width < 700 ?
-                        <>
-                            <Headline4 style={{ color: COLOR.highEmphasis }}>Conheça os planos FaleMais</Headline4>
-                            <Subtitle2 style={{ color: COLOR.mediumEmphasis, margin: '12px 0 0 0' }}>Com o novo produto FaleMais da Telzir, você pode falar de graça até um determinado tempo e só paga os minutos excedentes.</Subtitle2>
-                        </>
-                        :
-                        <>
-                            <Headline3 style={{ color: COLOR.highEmphasis }}>Conheça os planos FaleMais</Headline3>
-                            <Subtitle1 style={{ color: COLOR.mediumEmphasis, margin: '16px 0 0 0' }}>Com o novo produto FaleMais da Telzir, você pode falar de graça até um determinado tempo e só paga os minutos excedentes.</Subtitle1>
-                        </>
-                }
-
+                <Title>Conheça os planos FaleMais</Title>
+                <Subtitle style={{ margin: '12px 0 0 0' }}>Com o novo produto FaleMais da Telzir, você pode falar de graça até um determinado tempo e só paga os minutos excedentes.</Subtitle>
             </TextsContainer>
-            <Card tariffs={tariffs} plans={plans.map(({ name, bonus }) => { return { name, bonus } })} style={{ margin: width <= 1220 && width > 1024 ? '48px 0 0 0' : width <= 1024 && width > 700 ? '32px 0 0 0' : width < 700 && width > 424 ? '32px auto' : width <= 424 ? '32px 0 0 0' : '64px 0 0 0' }} />
+            <StyledCard tariffs={tariffs} plans={plans} />
         </Main>
         <Footer />
     </Container>
@@ -110,5 +99,54 @@ const TextsContainer = styled.div`
         padding: 32px;
         background-image: none;
         margin: auto;
+    }
+`
+
+const StyledCard = styled(Card)`
+    margin: 64px 0 0 0;
+
+    @media screen and (max-width: 1220px) and (min-width: 1025px){
+        margin: 48px 0 0 0;
+    }
+
+    @media screen and (max-width: 1024px) and (min-width: 701px){
+        margin: 32px 0 0 0;
+    }
+
+    @media screen and (max-width: 700px){
+        margin: 32px auto;
+    }
+`
+
+const Title = styled.h1`
+    display: inline-block;
+    font-size: 48px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    color: ${COLOR.highEmphasis};
+
+    @media screen and (max-width: 700px){
+        display: inline-block;
+        font-size: 34px;
+        font-family: 'Roboto', sans-serif;
+        letter-spacing: 0.25px;
+        font-weight: 400;
+    }
+`
+
+const Subtitle = styled.p`
+    display: inline-block;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.15px;
+    font-weight: 400;
+    color: ${COLOR.mediumEmphasis};
+
+    @media screen and (max-width: 700px){
+        display: inline-block;
+        font-size: 14px;
+        font-family: 'Roboto', sans-serif;
+        letter-spacing: 0.1px;
+        font-weight: 500;
     }
 `

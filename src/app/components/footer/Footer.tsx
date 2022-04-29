@@ -39,7 +39,7 @@ const Container = styled.div`
     height: fit-content;
     background-color: ${COLOR.neutral};
     border-width: 1px 0 0 0;
-    border-color: ${COLOR.textFieldContainer};
+    border-color: ${COLOR.disabledLighter};
     border-style: solid;
 
     @media screen and (max-width: 700px){

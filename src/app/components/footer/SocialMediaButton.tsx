@@ -1,6 +1,7 @@
+import styled from 'styled-components'
 import { PropsWithChildren } from "react";
 import { COLOR } from "../../constants/color.constant";
-import { Button } from "../Button";
+import { Button } from "../buttons/Button";
 
 interface Props {
     children: JSX.Element
@@ -8,17 +9,13 @@ interface Props {
 }
 
 export function SocialMediaButton({ children, onClick }: PropsWithChildren<Props>) {
-    return <Button
-        buttonColor={{
-            background: COLOR.neutral,
-            backgroundHover: COLOR.neutral,
-            backgroundActive: COLOR.neutral,
-            outline: COLOR.highEmphasis,
-            content: COLOR.primary
-        }}
+    return <StyledButton
         onClick={onClick}
-        hasShadow={false}
-        hideInteractivity
-        forceMinWidth
         content={{ icon: children }} />
 }
+
+const StyledButton = styled(Button)`
+    background-color: ${COLOR.neutral};
+    outline-color: ${COLOR.highEmphasis};
+    width: 36px;
+`

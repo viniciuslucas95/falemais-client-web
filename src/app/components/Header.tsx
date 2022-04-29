@@ -9,7 +9,6 @@ export function Header() {
     const { width } = useDimensions()
     const pathname = window.location.pathname
 
-    // Update do react router
     return <Container>
         <Logo src={logo} alt='telzir logo' />
         {
@@ -24,6 +23,10 @@ export function Header() {
     </Container>
 }
 
+interface SelectProp {
+    isSelected: boolean
+}
+
 const Container = styled.header`
     display: flex;
     justify-content: space-between;
@@ -32,7 +35,7 @@ const Container = styled.header`
     background-color: ${COLOR.neutral};
     padding: 0 32px;
     border-width: 0 0 1px 0;
-    border-color: ${COLOR.textFieldContainer};
+    border-color: ${COLOR.disabledLighter};
     border-style: solid;
 `
 
@@ -45,10 +48,6 @@ const Nav = styled.nav`
     display: flex;
     height: 100%;
 `
-
-interface SelectProp {
-    isSelected: boolean
-}
 
 const NavItem = styled.div<SelectProp>`
     height: 100%;

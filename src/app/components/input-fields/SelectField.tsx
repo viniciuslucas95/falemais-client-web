@@ -2,13 +2,9 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import { ExpandIcon } from '../../../assets/svgs/ExpandIcon'
 import { COLOR } from '../../constants/color.constant'
-import { Button } from '../Button'
 import { Body2 } from '../Texts'
 import { Label } from './Label'
-
-interface WidthProps {
-    width?: string
-}
+import { SelectFieldButton } from './SelectFieldButton'
 
 interface SelectField {
     options: string[],
@@ -16,13 +12,14 @@ interface SelectField {
     onOptionChange: (value: string) => void
 }
 
-interface Props extends WidthProps {
+interface Props {
     label: string
     style?: React.CSSProperties
     data: SelectField
+    className?: string
 }
 
-export function SelectField({ style, width, label, data }: Props) {
+export function SelectField({ className, style, label, data }: Props) {
     const [isFocused, setIsFocused] = useState(false)
     const { onOptionChange, options, selectedOption } = data
 
@@ -35,8 +32,8 @@ export function SelectField({ style, width, label, data }: Props) {
     }
 
     return <Container
+        className={className}
         style={style}
-        width={width ?? '160px'}
         onBlur={(e) => handleBlur(e)}
     >
         <InputContainer isFocused={isFocused}>
@@ -50,23 +47,10 @@ export function SelectField({ style, width, label, data }: Props) {
         {isFocused ?
             <OptionsContainer>
                 {options.map((option, index) => {
-                    return <Button
-                        justifyContent='flex-start'
-                        content={{ text: <Body2>{option}</Body2> }}
-                        key={index}
-                        onClick={() => {
-                            onOptionChange(option)
-                            setIsFocused(false)
-                        }}
-                        hasShadow={false}
-                        buttonColor={{
-                            background: COLOR.neutral,
-                            backgroundHover: COLOR.neutralHover,
-                            backgroundActive: COLOR.neutralActive,
-                            outline: COLOR.highEmphasis,
-                            content: COLOR.primary
-                        }}
-                    />
+                    return <SelectFieldButton index={index} text={option} onClick={() => {
+                        onOptionChange(option)
+                        setIsFocused(false)
+                    }} />
                 })}
             </OptionsContainer>
             : null}
@@ -77,9 +61,8 @@ interface FocusProps {
     isFocused?: boolean
 }
 
-const Container = styled.div<WidthProps>`
+const Container = styled.div`
     position: relative;
-    width: ${({ width }) => width};
 `
 
 const InputContainer = styled.div<FocusProps>`
@@ -104,7 +87,7 @@ const IconContainer = styled.div`
     pointer-events: none;
 `
 
-const InputButton = styled.button<WidthProps>`
+const InputButton = styled.button`
     height: 100%;
     width: 100%;
     left: 0;
@@ -115,7 +98,7 @@ const InputButton = styled.button<WidthProps>`
     cursor: pointer;
 `
 
-const Text = styled(Body2) <WidthProps & FocusProps>`
+const Text = styled(Body2) <FocusProps>`
     width: calc(100% - 48px);
     position: absolute;
     overflow: hidden;
