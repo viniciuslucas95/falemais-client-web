@@ -102,7 +102,7 @@ const Container = styled.div`
 
     @media screen and (max-width: 427px){
         width: 100%;
-        padding: 0 32px;
+        padding: 32px;
         box-shadow: none;
     }
 `

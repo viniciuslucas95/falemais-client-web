@@ -5,7 +5,6 @@ import { Header } from '../../components/Header'
 import { COLOR } from '../../constants/color.constant'
 import bgImage1920 from '../../../assets/images/background-1920.png'
 import bgImage1440 from '../../../assets/images/background-1440.png'
-import { useDimensions } from '../../hooks/useDimensions'
 import { useEffect, useState } from 'react'
 import { TariffsService } from '../../services/tariffs/tariffs.service'
 import { PlansService } from '../../services/plans/plans.service'
@@ -18,7 +17,6 @@ interface Props {
 }
 
 export function HomePage({ tariffsService, plansService }: Props) {
-    const { width } = useDimensions()
     const [plans, setPlans] = useState<GetPlanDto[]>([])
     const [tariffs, setTariffs] = useState<GetTariffDto[]>([])
 
@@ -51,7 +49,7 @@ export function HomePage({ tariffsService, plansService }: Props) {
 const Container = styled.div``
 
 const Main = styled.main`
-    padding: 64px 160px;
+    padding: 32px 160px;
     background-image: url(${bgImage1920});
     background-position: right center;
     background-repeat: no-repeat;
@@ -64,13 +62,13 @@ const Main = styled.main`
 
     @media screen and (max-width: 1220px){
         background-image: url(${bgImage1440});
-        padding: 48px 96px;
+        padding: 32px 96px;
         background-position: 75% center;
     }
 
     @media screen and (max-width: 1160px){
         background-image: url(${bgImage1440});
-        padding: 48px 96px;
+        padding: 32px 96px;
         background-position: 67.5% center;
     }
 
@@ -103,18 +101,22 @@ const TextsContainer = styled.div`
 `
 
 const StyledCard = styled(Card)`
-    margin: 64px 0 0 0;
+    margin: 32px 0 0 0;
 
     @media screen and (max-width: 1220px) and (min-width: 1025px){
-        margin: 48px 0 0 0;
+        margin: 32px 0 0 0;
     }
 
     @media screen and (max-width: 1024px) and (min-width: 701px){
         margin: 32px 0 0 0;
     }
 
-    @media screen and (max-width: 700px){
+    @media screen and (max-width: 700px) and (min-width: 427px){
         margin: 32px auto;
+    }
+
+    @media screen and (max-width: 427px){
+        margin: auto;
     }
 `
 
