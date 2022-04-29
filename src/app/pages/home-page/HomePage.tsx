@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Card } from './card/Card'
+import { HomeCard } from './card/HomeCard'
 import { COLOR } from '../../constants/color.constant'
 import bgImage1920 from '../../../assets/images/background-1920.png'
 import bgImage1440 from '../../../assets/images/background-1440.png'
@@ -70,7 +70,7 @@ const TextsContainer = styled.div`
     }
 `
 
-const StyledCard = styled(Card)`
+const StyledCard = styled(HomeCard)`
     margin: 32px 0 0 0;
 
     @media screen and (max-width: 1220px) and (min-width: 1025px){

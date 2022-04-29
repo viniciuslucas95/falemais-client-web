@@ -8,17 +8,18 @@ import { SelectField } from '../../../components/input-fields/SelectField'
 import { TextField } from '../../../components/input-fields/TextField'
 import { COLOR } from '../../../constants/color.constant'
 import { Subtitle2, Body2 } from '../../../components/Texts'
+import { Card } from '../../Card'
 
 interface Props {
-    style?: React.CSSProperties
     plans: Omit<GetPlanDto, 'id'>[]
     tariffs: Omit<GetTariffDto, 'id'>[]
+    style?: React.CSSProperties
     className?: string
 }
 
 const INPUT_FIELD_WIDTH = 160;
 
-export function Card({ className, style, plans, tariffs }: Props) {
+export function HomeCard({ className, style, plans, tariffs }: Props) {
     const [textFieldState, textFieldDispatch] = useReducer(textFieldReducer, textFieldInitialState)
     const { destinyDdd, originDdd, time } = textFieldState
     const [plan, setPlan] = useState<Omit<GetPlanDto, 'id'>>({ name: '', bonus: 0 })
@@ -61,8 +62,7 @@ export function Card({ className, style, plans, tariffs }: Props) {
         })
     }
 
-    return <Container className={className} style={style}>
-        <Title>Veja o quanto você economiza</Title>
+    const firstSection = <>
         <FieldsContainer>
             <StyledTextField label='DDD de Origem' data={originDdd} onChange={onOriginDddChange} />
             <StyledTextField label='DDD de Destino' data={destinyDdd} onChange={onDestinyDddChange} />
@@ -73,7 +73,9 @@ export function Card({ className, style, plans, tariffs }: Props) {
                 onOptionChange: onPlanChange
             }} />
         </FieldsContainer>
-        <Separator />
+    </>
+
+    const secondSection = <>
         <TitlesContainer style={{ marginTop: '32px' }}>
             <TableTitleContainer style={{ borderRadius: '4px 0 0 0' }}>
                 <TableTitle>Com plano</TableTitle>
@@ -90,29 +92,10 @@ export function Card({ className, style, plans, tariffs }: Props) {
                 <TableText>{withoutPlan}</TableText>
             </TableTextContainer>
         </TitlesContainer>
-    </Container>
+    </>
+
+    return <Card title='Veja o quanto você economiza' style={style} className={className} firstSection={firstSection} secondSection={secondSection} />
 }
-
-const Container = styled.div`
-    padding: 32px;
-    background-color: ${COLOR.neutral};
-    width: fit-content;
-    border-radius: 4px;
-    box-shadow: 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 20%);
-
-    @media screen and (max-width: 427px){
-        width: 100%;
-        padding: 32px;
-        box-shadow: none;
-    }
-`
-
-const Separator = styled.div`
-    width: 100%;
-    height: 1px;
-    padding: 0 32px;
-    background-color: ${COLOR.disabledLighter};
-`
 
 const TitlesContainer = styled.div`
     display: flex;
@@ -141,16 +124,6 @@ const TableTextContainer = styled.div`
 
 const TableText = styled(Body2)`
     color: ${COLOR.mediumEmphasis};
-`
-
-const Title = styled.h1`
-    display: inline-block;
-    font-size: 20px;
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: 0.15px;
-    font-weight: 500;
-    color:${COLOR.highEmphasis};
-    margin: 0 0 32px 0;
 `
 
 const FieldsContainer = styled.div`
