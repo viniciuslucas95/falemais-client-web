@@ -1,105 +1,49 @@
-import { useReducer } from 'react'
+import { useReducer, useState } from 'react'
 import styled from 'styled-components'
 import { COLOR } from '../../constants/color.constant'
 import { useDimensions } from '../../hooks/useDimensions'
 import { SelectField } from '../../components/input-fields/SelectField'
-import { TextField, TextFieldData } from '../../components/input-fields/TextField'
+import { TextField } from '../../components/input-fields/TextField'
 import { Body2, Headline6, Subtitle2 } from '../../components/Texts'
 import { GetPlanDto } from '../../dto/get-plans.dto'
-
-enum ActionType {
-    SET_ORIGIN_DDD = 'set-origin-ddd',
-    SET_DESTINY_DDD = 'set-destiny-ddd',
-    SET_TIME = 'set-time'
-}
-
-interface TextFieldAction {
-    type: ActionType,
-    payload: string
-}
-
-interface TextFieldState {
-    originDdd: TextFieldData,
-    destinyDdd: TextFieldData,
-    time: TextFieldData
-}
+import { ActionType, textFieldInitialState, textFieldReducer } from './text-field-reducer'
+import { GetTariffDto } from '../../dto/get-tariff.dto'
+import { getPricePerMin } from './helper/get-price-per-min.helper'
 
 interface Props {
     style?: React.CSSProperties
     plans: Omit<GetPlanDto, 'id'>[]
+    tariffs: GetTariffDto[]
 }
 
-function textFieldReducer(state: TextFieldState, action: TextFieldAction) {
-    const { type, payload } = action
-    const isPayloadOnlyNumbers = payload.match(/^[0-9]*$/gm)
-
-    switch (type) {
-        case ActionType.SET_ORIGIN_DDD:
-            return {
-                ...state,
-                originDdd: {
-                    value: payload,
-                    helpText: isPayloadOnlyNumbers === null ? {
-                        text: 'Apenas números',
-                        error: true
-                    } : undefined
-                }
-            }
-        case ActionType.SET_DESTINY_DDD:
-            return {
-                ...state,
-                destinyDdd: {
-                    value: payload,
-                    helpText: isPayloadOnlyNumbers === null ? {
-                        text: 'Apenas números',
-                        error: true
-                    } : undefined
-                }
-            }
-        case ActionType.SET_TIME:
-            return {
-                ...state,
-                time: {
-                    value: payload,
-                    helpText: isPayloadOnlyNumbers === null ? {
-                        text: 'Apenas números',
-                        error: true
-                    } : undefined
-                }
-            }
-        default:
-            return state
-    }
-}
-
-const textFieldInitialState: TextFieldState = {
-    destinyDdd: { value: '' },
-    originDdd: { value: '' },
-    time: { value: '' }
-}
-
-export function Card({ style, plans }: Props) {
+export function Card({ style, plans, tariffs }: Props) {
     const [textFieldState, textFieldDispatch] = useReducer(textFieldReducer, textFieldInitialState)
     const { width } = useDimensions()
+    const { destinyDdd, originDdd, time } = textFieldState
+    const [plan, setPlan] = useState<Omit<GetPlanDto, 'id'>>({ name: 'Nenhum', bonus: 0 })
+    const { withPlan, withoutPlan } = getPricePerMin(originDdd, destinyDdd, time, plan.bonus, tariffs)
 
-    function onOriginDddChange(value: string) {
+    function onDataChange(action: ActionType, value: string) {
         textFieldDispatch({
-            type: ActionType.SET_ORIGIN_DDD,
+            type: action,
             payload: value
         })
     }
 
-    function onDestinyDddChange(value: string) {
-        textFieldDispatch({
-            type: ActionType.SET_DESTINY_DDD,
-            payload: value
-        })
-    }
+    const onOriginDddChange = (value: string) => { onDataChange(ActionType.SET_ORIGIN_DDD, value) }
+    const onDestinyDddChange = (value: string) => { onDataChange(ActionType.SET_DESTINY_DDD, value) }
+    const onTimeChange = (value: string) => { onDataChange(ActionType.SET_TIME, value) }
 
-    function onTimeChange(value: string) {
-        textFieldDispatch({
-            type: ActionType.SET_TIME,
-            payload: value
+    function onPlanChange(name: string) {
+        const selectedPlan = plans.find(plan => {
+            if (plan.name === name) return plan.bonus
+        })
+
+        const bonus = selectedPlan ? selectedPlan.bonus : 0
+
+        setPlan({
+            name,
+            bonus
         })
     }
 
@@ -109,12 +53,16 @@ export function Card({ style, plans }: Props) {
                 <>
                     <Headline6 style={{ color: COLOR.highEmphasis, margin: '0 0 32px 0' }}>Veja o quanto você economiza</Headline6>
                     <TextFieldContainer>
-                        <TextField style={{ margin: '0 16px 0 0' }} label='DDD de Origem' data={textFieldState.originDdd} onChange={onOriginDddChange} />
-                        <TextField label='DDD de Destino' data={textFieldState.destinyDdd} onChange={onDestinyDddChange} />
+                        <TextField style={{ margin: '0 16px 0 0' }} label='DDD de Origem' data={originDdd} onChange={onOriginDddChange} />
+                        <TextField label='DDD de Destino' data={destinyDdd} onChange={onDestinyDddChange} />
                     </TextFieldContainer>
                     <TextFieldContainer style={{ margin: '32px 0 0 0' }}>
-                        <TextField style={{ margin: '0 16px 0 0' }} label='Tempo (em minutos)' data={textFieldState.time} onChange={onTimeChange} />
-                        <SelectField label='Plano' options={plans.map(plan => plan.name)} />
+                        <TextField style={{ margin: '0 16px 0 0' }} label='Tempo (em minutos)' data={time} onChange={onTimeChange} />
+                        <SelectField label='Plano' data={{
+                            options: plans.map(plan => plan.name),
+                            selectedOption: plan.name,
+                            onOptionChange: onPlanChange
+                        }} />
                     </TextFieldContainer>
                     <Separator />
                     <TitlesContainer>
@@ -127,20 +75,24 @@ export function Card({ style, plans }: Props) {
                     </TitlesContainer>
                     <TitlesContainer>
                         <TableTextContainer style={{ borderRadius: '0 0 0 4px' }}>
-                            <TableText>R$ 28,00</TableText>
+                            <TableText>{withPlan}</TableText>
                         </TableTextContainer>
                         <TableTextContainer style={{ borderRadius: '0 4px 0 4px' }}>
-                            <TableText>R$ 45,00</TableText>
+                            <TableText>{withoutPlan}</TableText>
                         </TableTextContainer>
                     </TitlesContainer>
                 </>
                 :
                 <>
                     <Headline6 style={{ color: COLOR.highEmphasis, margin: '0 0 32px 0' }}>Veja o quanto você economiza</Headline6>
-                    <TextField width='100%' style={{ margin: '0 0 32px 0' }} label='DDD de Origem' data={textFieldState.originDdd} onChange={onOriginDddChange} />
-                    <TextField width='100%' style={{ margin: '0 0 32px 0' }} label='DDD de Destino' data={textFieldState.destinyDdd} onChange={onDestinyDddChange} />
-                    <TextField width='100%' style={{ margin: '0 0 32px 0' }} label='Tempo (em minutos)' data={textFieldState.time} onChange={onTimeChange} />
-                    <SelectField width='100%' label='Plano' options={plans.map(plan => plan.name)} />
+                    <TextField width='100%' style={{ margin: '0 0 32px 0' }} label='DDD de Origem' data={originDdd} onChange={onOriginDddChange} />
+                    <TextField width='100%' style={{ margin: '0 0 32px 0' }} label='DDD de Destino' data={destinyDdd} onChange={onDestinyDddChange} />
+                    <TextField width='100%' style={{ margin: '0 0 32px 0' }} label='Tempo (em minutos)' data={time} onChange={onTimeChange} />
+                    <SelectField width='100%' label='Plano' data={{
+                        options: plans.map(plan => plan.name),
+                        selectedOption: plan.name,
+                        onOptionChange: onPlanChange
+                    }} />
                     <Separator />
                     <TitlesContainer>
                         <TableTitleContainer style={{ borderRadius: '4px 0 0 0' }}>
@@ -152,10 +104,10 @@ export function Card({ style, plans }: Props) {
                     </TitlesContainer>
                     <TitlesContainer>
                         <TableTextContainer style={{ borderRadius: '0 0 0 4px' }}>
-                            <TableText>R$ 0,00</TableText>
+                            <TableText>{withPlan}</TableText>
                         </TableTextContainer>
                         <TableTextContainer style={{ borderRadius: '0 4px 0 4px' }}>
-                            <TableText>R$ 0,00</TableText>
+                            <TableText>{withoutPlan}</TableText>
                         </TableTextContainer>
                     </TitlesContainer>
                 </>

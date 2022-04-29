@@ -10,15 +10,21 @@ interface WidthProps {
     width?: string
 }
 
-interface Props extends WidthProps {
-    options: string[]
-    label: string
-    style?: React.CSSProperties
+interface SelectField {
+    options: string[],
+    selectedOption: string,
+    onOptionChange: (value: string) => void
 }
 
-export function SelectField({ style, options, width, label }: Props) {
+interface Props extends WidthProps {
+    label: string
+    style?: React.CSSProperties
+    data: SelectField
+}
+
+export function SelectField({ style, width, label, data }: Props) {
     const [isFocused, setIsFocused] = useState(false)
-    const [plan, setPlan] = useState(options[0])
+    const { onOptionChange, options, selectedOption } = data
 
     function handleBlur(event: React.FocusEvent<HTMLDivElement, Element>) {
         const { relatedTarget, currentTarget } = event
@@ -34,7 +40,7 @@ export function SelectField({ style, options, width, label }: Props) {
         onBlur={(e) => handleBlur(e)}
     >
         <InputContainer isFocused={isFocused}>
-            <Text isFocused={isFocused}>{plan}</Text>
+            <Text isFocused={isFocused}>{selectedOption}</Text>
             <Label isFocused={isFocused}>{label}</Label>
             <InputButton onClick={() => setIsFocused(!isFocused)} />
             <IconContainer>
@@ -49,7 +55,7 @@ export function SelectField({ style, options, width, label }: Props) {
                         content={{ text: <Body2>{option}</Body2> }}
                         key={index}
                         onClick={() => {
-                            setPlan(option)
+                            onOptionChange(option)
                             setIsFocused(false)
                         }}
                         hasShadow={false}

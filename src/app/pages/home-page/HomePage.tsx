@@ -53,7 +53,7 @@ export function HomePage({ tariffsService, plansService }: Props) {
                 }
 
             </TextsContainer>
-            <Card plans={plans.map(({ name, bonus }) => { return { name, bonus } })} style={{ margin: width <= 1220 && width > 1024 ? '48px 0 0 0' : width <= 1024 && width > 700 ? '32px 0 0 0' : width < 700 && width > 424 ? '32px auto' : width <= 424 ? '32px 0 0 0' : '64px 0 0 0' }} />
+            <Card tariffs={tariffs} plans={plans.map(({ name, bonus }) => { return { name, bonus } })} style={{ margin: width <= 1220 && width > 1024 ? '48px 0 0 0' : width <= 1024 && width > 700 ? '32px 0 0 0' : width < 700 && width > 424 ? '32px auto' : width <= 424 ? '32px 0 0 0' : '64px 0 0 0' }} />
         </Main>
         <Footer />
     </Container>
