@@ -2,27 +2,28 @@ import styled, { css } from 'styled-components'
 import { COLOR } from '../constants/color.constant'
 import logo from '../../assets/images/logo.png'
 import { useDimensions } from '../hooks/useDimensions'
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const HEADER_SIZE = '48px'
 
 export function Header() {
     const { width } = useDimensions()
-    const navigate = useNavigate()
-    const pathname = window.location.pathname
+    const location = useLocation()
+
+    const isSelected = (path: string) => path === location.pathname
 
     return <Container>
         <Logo src={logo} alt='telzir logo' />
         {
             width > 426 ?
                 <Nav>
-                    <NavItem to='/' isSelected={pathname === '/' ? true : false}><NavText isSelected={pathname === '/' ? true : false}>Início</NavText></NavItem>
-                    <NavItem to='/tariffs' style={{ margin: '0 16px' }} isSelected={pathname === '/tariffs' ? true : false}><NavText isSelected={pathname === '/tariffs' ? true : false}>Tarifas</NavText></NavItem>
-                    <NavItem to='/plans' isSelected={pathname === '/plans' ? true : false}><NavText isSelected={pathname === '/plans' ? true : false}>Planos</NavText></NavItem>
-                </Nav>
+                    <StyledLink to='/'><NavItem isSelected={isSelected('/')}><NavText isSelected={isSelected('/')}>Início</NavText></NavItem></StyledLink>
+                    <StyledLink to='/tariffs'><NavItem style={{ margin: '0 16px' }} isSelected={isSelected('/tariffs')}><NavText isSelected={isSelected('/tariffs')}>Tarifas</NavText></NavItem></StyledLink>
+                    <StyledLink to='/plans'><NavItem isSelected={isSelected('/plans')}><NavText isSelected={isSelected('/plans')}>Planos</NavText></NavItem></StyledLink>
+                </Nav >
                 : null
         }
-    </Container>
+    </Container >
 }
 
 interface SelectProp {
@@ -51,14 +52,17 @@ const Nav = styled.nav`
     height: 100%;
 `
 
-const NavItem = styled(Link) <SelectProp>`
+const StyledLink = styled(Link)`
+    text-decoration: none;
+`
+
+const NavItem = styled.div<SelectProp>`
     height: 100%;
     padding: 0 8px;
     position: relative;
     display: flex;
     align-items: center;
     cursor: pointer;
-    text-decoration: none;
 
     ${({ isSelected }) => isSelected ? css`
         ::after{
