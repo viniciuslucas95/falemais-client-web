@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react'
+import { useEffect, useReducer, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { COLOR } from '../../constants/color.constant'
 import { useDimensions } from '../../hooks/useDimensions'
@@ -20,8 +20,21 @@ export function Card({ style, plans, tariffs }: Props) {
     const [textFieldState, textFieldDispatch] = useReducer(textFieldReducer, textFieldInitialState)
     const { width } = useDimensions()
     const { destinyDdd, originDdd, time } = textFieldState
-    const [plan, setPlan] = useState<Omit<GetPlanDto, 'id'>>({ name: 'Nenhum', bonus: 0 })
+    const [plan, setPlan] = useState<Omit<GetPlanDto, 'id'>>({ name: '', bonus: 0 })
     const { withPlan, withoutPlan } = getPricePerMin(originDdd, destinyDdd, time, plan.bonus, tariffs)
+    const hasFetchedData = useRef(false)
+
+    useEffect(() => {
+        if (hasFetchedData.current) return
+        if (plans.length === 0) return
+
+        hasFetchedData.current = true
+
+        setPlan({
+            bonus: plans[0].bonus,
+            name: plans[0].name
+        })
+    }, [tariffs])
 
     function onDataChange(action: ActionType, value: string) {
         textFieldDispatch({
