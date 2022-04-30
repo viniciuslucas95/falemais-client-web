@@ -70,7 +70,7 @@ export function TariffsPage({ tariffs }: Omit<PageProps, 'plans'>) {
 }
 
 const Main = styled.main`
-    padding: 32px;
+    padding: 32rem;
 
     @media screen and (max-width: 427px){
         padding: 0;

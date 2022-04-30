@@ -16,7 +16,7 @@ export function DeleteButton({ onClick }: Props) {
 const StyledButton = styled(Button)`
     background-color: ${COLOR.error};
     outline-color: ${COLOR.highEmphasis};
-    width: 36px;
+    width: 36rem;
 
     :hover{
         background-color: ${COLOR.errorHover};

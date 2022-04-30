@@ -55,12 +55,12 @@ interface ButtonProps extends TextProps {
 
 const StyledButton = styled.button<ButtonProps>`
     display: flex;
-    height: 36px;
-    padding: ${({ hasIcon, hasText }) => hasIcon && hasText ? '0 16px 0 12px' : !hasIcon && hasText ? '0 16px' : '0'};
+    height: 36rem;
+    padding: ${({ hasIcon, hasText }) => hasIcon && hasText ? '0 16rem 0 12rem' : !hasIcon && hasText ? '0 16rem' : '0'};
     justify-content: center;
     align-items: center;
-    border-radius: 4px;
-    border-width: 0px;
+    border-radius: 4rem;
+    border-width: 0rem;
     background-color: ${COLOR.primary};
     color: ${COLOR.neutral};
     outline-color: ${COLOR.highEmphasis};
@@ -71,5 +71,5 @@ const IconContainer = styled.div<TextProps>`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: ${({ hasText }) => hasText ? '8px' : 0};
+    margin-right: ${({ hasText }) => hasText ? '8rem' : 0};
 `

@@ -10,7 +10,7 @@ export function HomePage({ plans, tariffs }: PageProps) {
         <Main>
             <TextsContainer>
                 <Title>Conheça os planos FaleMais</Title>
-                <Subtitle style={{ margin: '12px 0 0 0' }}>Com o novo produto FaleMais da Telzir, você pode falar de graça até um determinado tempo e só paga os minutos excedentes.</Subtitle>
+                <Subtitle style={{ margin: '12rem 0 0 0' }}>Com o novo produto FaleMais da Telzir, você pode falar de graça até um determinado tempo e só paga os minutos excedentes.</Subtitle>
             </TextsContainer>
             <StyledCard tariffs={tariffs} plans={plans} />
         </Main>
@@ -18,7 +18,7 @@ export function HomePage({ plans, tariffs }: PageProps) {
 }
 
 const Main = styled.main`
-    padding: 32px 160px;
+    padding: 32rem 160rem;
     background-image: url(${bgImage1920});
     background-position: right center;
     background-repeat: no-repeat;
@@ -31,58 +31,58 @@ const Main = styled.main`
 
     @media screen and (max-width: 1220px){
         background-image: url(${bgImage1440});
-        padding: 32px 96px;
+        padding: 32rem 96rem;
         background-position: 75% center;
     }
 
     @media screen and (max-width: 1160px){
         background-image: url(${bgImage1440});
-        padding: 32px 96px;
+        padding: 32rem 96rem;
         background-position: 67.5% center;
     }
 
     @media screen and (max-width: 1024px){
         background-image: url(${bgImage1440});
-        padding: 32px 64px;
+        padding: 32rem 64rem;
         background-position: center center;
     }
 
     @media screen and (max-width: 850px){
         background-image: url(${bgImage1440});
-        padding: 32px 64px;
+        padding: 32rem 64rem;
         background-position: 40% center;
     }
 
     @media screen and (max-width: 700px){
         background-image: none;
-        padding: 32px 0;
+        padding: 32rem 0;
     }
 `
 
 const TextsContainer = styled.div`
-    width: 400px;
+    width: 400rem;
 
     @media screen and (max-width: 700px){
         width: 100%;
-        padding: 32px;
+        padding: 32rem;
         background-image: none;
         margin: auto;
     }
 `
 
 const StyledCard = styled(HomeCard)`
-    margin: 32px 0 0 0;
+    margin: 32rem 0 0 0;
 
     @media screen and (max-width: 1220px) and (min-width: 1025px){
-        margin: 32px 0 0 0;
+        margin: 32rem 0 0 0;
     }
 
     @media screen and (max-width: 1024px) and (min-width: 701px){
-        margin: 32px 0 0 0;
+        margin: 32rem 0 0 0;
     }
 
     @media screen and (max-width: 700px) and (min-width: 427px){
-        margin: 32px auto;
+        margin: 32rem auto;
     }
 
     @media screen and (max-width: 427px){
@@ -92,33 +92,33 @@ const StyledCard = styled(HomeCard)`
 
 const Title = styled.h1`
     display: inline-block;
-    font-size: 48px;
+    font-size: 48rem;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     color: ${COLOR.highEmphasis};
 
     @media screen and (max-width: 700px){
         display: inline-block;
-        font-size: 34px;
+        font-size: 34rem;
         font-family: 'Roboto', sans-serif;
-        letter-spacing: 0.25px;
+        letter-spacing: 0.25rem;
         font-weight: 400;
     }
 `
 
 const Subtitle = styled.p`
     display: inline-block;
-    font-size: 16px;
+    font-size: 16rem;
     font-family: 'Roboto', sans-serif;
-    letter-spacing: 0.15px;
+    letter-spacing: 0.15rem;
     font-weight: 400;
     color: ${COLOR.mediumEmphasis};
 
     @media screen and (max-width: 700px){
         display: inline-block;
-        font-size: 14px;
+        font-size: 14rem;
         font-family: 'Roboto', sans-serif;
-        letter-spacing: 0.1px;
+        letter-spacing: 0.1rem;
         font-weight: 500;
     }
 `

@@ -17,5 +17,5 @@ export function SocialMediaButton({ children, onClick }: PropsWithChildren<Props
 const StyledButton = styled(Button)`
     background-color: ${COLOR.neutral};
     outline-color: ${COLOR.highEmphasis};
-    width: 36px;
+    width: 36rem;
 `

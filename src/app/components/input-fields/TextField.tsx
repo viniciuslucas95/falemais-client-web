@@ -54,15 +54,15 @@ const Container = styled.div`
 
 const StyledTextField = styled.input<ErrorProps & FocusProps>`
     outline-color: ${({ hasError }) => hasError ? COLOR.error : COLOR.primary};
-    height: 48px;
-    padding: 4px 16px 0px 16px;
+    height: 48rem;
+    padding: 4rem 16rem 0rem 16rem;
     width: 100%;
     font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    letter-spacing: 0.5px;
+    font-size: 14rem;
+    letter-spacing: 0.5rem;
     color: ${({ isFocused }) => isFocused ? COLOR.highEmphasis : COLOR.mediumEmphasis};
     border-color: ${({ hasError }) => hasError ? COLOR.error : COLOR.disabled};
-    border-radius: 4px;
+    border-radius: 4rem;
     border-style: solid;
     background-color: ${COLOR.neutral};
 `
@@ -72,6 +72,6 @@ const HelperText = styled(Caption) <ErrorProps>`
     left: 0;
     bottom: 0;
     transform: translateY(100%);
-    padding: 4px 16px;
+    padding: 4rem 16rem;
     color: ${({ hasError }) => hasError ? COLOR.error : COLOR.disabled};
 `

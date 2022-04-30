@@ -27,10 +27,10 @@ interface Props {
 
 export function CardWithTable({ children, table, style, className, title }: PropsWithChildren<Props>) {
     function getStyle(columnIndex: number, rowIndex: number, columnLength: number, rowLength: number): React.CSSProperties | undefined {
-        if (rowIndex === 0 && columnIndex === 0) return { borderRadius: '4px 0 0 0' }
-        if (rowIndex === 0 && columnIndex === columnLength - 1) return { borderRadius: '0 4px 0 0' }
-        if (rowIndex === rowLength - 1 && columnIndex === 0) return { borderRadius: '0 0 0 4px' }
-        if (rowIndex === rowLength - 1 && columnIndex === columnLength - 1) return { borderRadius: '0 0 4px 0' }
+        if (rowIndex === 0 && columnIndex === 0) return { borderRadius: '4rem 0 0 0' }
+        if (rowIndex === 0 && columnIndex === columnLength - 1) return { borderRadius: '0 4rem 0 0' }
+        if (rowIndex === rowLength - 1 && columnIndex === 0) return { borderRadius: '0 0 0 4rem' }
+        if (rowIndex === rowLength - 1 && columnIndex === columnLength - 1) return { borderRadius: '0 0 4rem 0' }
         return undefined
     }
 
@@ -80,32 +80,32 @@ interface WidthProp {
 }
 
 const Container = styled.div`
-    padding: 32px;
+    padding: 32rem;
     background-color: ${COLOR.neutral};
     width: fit-content;
-    border-radius: 4px;
-    box-shadow: 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 20%);
+    border-radius: 4rem;
+    box-shadow: 0 4rem 5rem 0 rgb(0 0 0 / 14%), 0 1rem 10rem 0 rgb(0 0 0 / 12%), 0 2rem 4rem -1rem rgb(0 0 0 / 20%);
 
     @media screen and (max-width: 427px){
         width: 100%;
-        padding: 32px;
+        padding: 32rem;
         box-shadow: none;
     }
 `
 
 const Separator = styled.div`
     width: 100%;
-    height: 1px;
-    padding: 0 32px;
+    height: 1rem;
+    padding: 0 32rem;
     background-color: ${COLOR.disabledLighter};
-    margin: 32px 0;
+    margin: 32rem 0;
 `
 
 const Title = styled.h1`
     display: inline-block;
-    font-size: 20px;
+    font-size: 20rem;
     font-family: 'Roboto', sans-serif;
-    letter-spacing: 0.15px;
+    letter-spacing: 0.15rem;
     font-weight: 500;
     color:${COLOR.highEmphasis};
 `
@@ -126,8 +126,8 @@ const RowContent = styled.div<AlignProp & WidthProp>`
     justify-content: ${({ alignContent }) => alignContent ?? 'flex-start'};
     align-items: center;
     background-color: ${COLOR.disabledLighter};
-    padding: 16px;
-    height: 48px;
+    padding: 16rem;
+    height: 48rem;
 `
 
 const RowText = styled(Body2)`
@@ -140,8 +140,8 @@ const TitleContent = styled.div<AlignProp & WidthProp>`
     justify-content: ${({ alignContent }) => alignContent ?? 'flex-start'};
     align-items: center;
     background-color: ${COLOR.primary};
-    padding: 16px;
-    height: 48px;
+    padding: 16rem;
+    height: 48rem;
 `
 
 const TitleText = styled(Subtitle2)`

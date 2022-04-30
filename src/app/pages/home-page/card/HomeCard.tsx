@@ -81,7 +81,7 @@ const FieldsContainer = styled.div`
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    width: ${INPUT_FIELD_WIDTH * 2 + 32 + 'px'};
+    width: ${INPUT_FIELD_WIDTH * 2 + 32 + 'rem'};
     max-width: 100%;
 
     @media screen and (max-width: 427px) {
@@ -90,8 +90,8 @@ const FieldsContainer = styled.div`
 `
 
 const StyledTextField = styled(TextField)`
-    margin: 32px 0 0 0;
-    width: ${INPUT_FIELD_WIDTH + 'px'};
+    margin: 32rem 0 0 0;
+    width: ${INPUT_FIELD_WIDTH + 'rem'};
 
     @media screen and (max-width: 427px) {
         width: 100%;
@@ -99,8 +99,8 @@ const StyledTextField = styled(TextField)`
 `
 
 const StyledSelectField = styled(SelectField)`
-    margin: 32px 0 0 0;
-    width: ${INPUT_FIELD_WIDTH + 'px'};
+    margin: 32rem 0 0 0;
+    width: ${INPUT_FIELD_WIDTH + 'rem'};
 
     @media screen and (max-width: 427px) {
         width: 100%;

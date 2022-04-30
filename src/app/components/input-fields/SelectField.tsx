@@ -66,10 +66,10 @@ const Container = styled.div`
 `
 
 const InputContainer = styled.div<FocusProps>`
-    height: 48px;
-    border-radius: ${({ isFocused }) => isFocused ? '4px 4px 0 0' : '4px'};
+    height: 48rem;
+    border-radius: ${({ isFocused }) => isFocused ? '4rem 4rem 0 0' : '4rem'};
     border-style: solid;
-    border-width: ${({ isFocused }) => isFocused ? '2px 2px 0 2px' : '2px'};;
+    border-width: ${({ isFocused }) => isFocused ? '2rem 2rem 0 2rem' : '2rem'};;
     border-color: ${({ isFocused }) => isFocused ? COLOR.primary : COLOR.disabled};
     background-color: ${COLOR.neutral};
 `
@@ -78,8 +78,8 @@ const IconContainer = styled.div`
     position: absolute;
     height: 100%;
     width: 100%;
-    right: 12px;
-    top: 1px;
+    right: 12rem;
+    top: 1rem;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -93,16 +93,16 @@ const InputButton = styled.button`
     left: 0;
     top: 0;
     border: 0;
-    border-radius: 4px;
+    border-radius: 4rem;
     background-color: ${COLOR.neutral};
     cursor: pointer;
 `
 
 const Text = styled(Body2) <FocusProps>`
-    width: calc(100% - 48px);
+    width: calc(100% - 48rem);
     position: absolute;
     overflow: hidden;
-    padding: 4px 0px 0px 16px;
+    padding: 4rem 0rem 0rem 16rem;
     top: 50%;
     color: ${({ isFocused }) => isFocused ? COLOR.highEmphasis : COLOR.mediumEmphasis};
     white-space: nowrap;
@@ -117,9 +117,9 @@ const OptionsContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4rem 4rem;
     border-style: solid;
-    border-width: 0 2px 2px 2px;
+    border-width: 0 2rem 2rem 2rem;
     border-color: ${COLOR.primary};
     background-color: ${COLOR.neutral};
 `

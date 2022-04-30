@@ -4,7 +4,7 @@ import logo from '../../assets/images/logo.png'
 import { useDimensions } from '../hooks/useDimensions'
 import { Link, useLocation } from "react-router-dom";
 
-const HEADER_SIZE = '48px'
+const HEADER_SIZE = '48rem'
 
 export function Header() {
     const { width } = useDimensions()
@@ -18,7 +18,7 @@ export function Header() {
             width > 426 ?
                 <Nav>
                     <StyledLink to='/'><NavItem isSelected={isSelected('/')}><NavText isSelected={isSelected('/')}>Início</NavText></NavItem></StyledLink>
-                    <StyledLink to='/tariffs'><NavItem style={{ margin: '0 16px' }} isSelected={isSelected('/tariffs')}><NavText isSelected={isSelected('/tariffs')}>Tarifas</NavText></NavItem></StyledLink>
+                    <StyledLink to='/tariffs'><NavItem style={{ margin: '0 16rem' }} isSelected={isSelected('/tariffs')}><NavText isSelected={isSelected('/tariffs')}>Tarifas</NavText></NavItem></StyledLink>
                     <StyledLink to='/plans'><NavItem isSelected={isSelected('/plans')}><NavText isSelected={isSelected('/plans')}>Planos</NavText></NavItem></StyledLink>
                 </Nav >
                 : null
@@ -36,14 +36,14 @@ const Container = styled.header`
     align-items: center;
     height: ${HEADER_SIZE};
     background-color: ${COLOR.neutral};
-    padding: 0 32px;
-    border-width: 0 0 1px 0;
+    padding: 0 32rem;
+    border-width: 0 0 1rem 0;
     border-color: ${COLOR.disabledLighter};
     border-style: solid;
 `
 
 const Logo = styled.img`
-    height: 36px;
+    height: 36rem;
     image-rendering: optimizeQuality;
 `
 
@@ -58,7 +58,7 @@ const StyledLink = styled(Link)`
 
 const NavItem = styled.div<SelectProp>`
     height: 100%;
-    padding: 0 8px;
+    padding: 0 8rem;
     position: relative;
     display: flex;
     align-items: center;
@@ -69,21 +69,21 @@ const NavItem = styled.div<SelectProp>`
             content: '';
             position: absolute;
             width: 100%;
-            height: 1px;
-            border-radius: 1px;
+            height: 1rem;
+            border-radius: 1rem;
             background-color: ${COLOR.primary};
             bottom: 0;
             left: 0;
-            margin-bottom: -1px;
+            margin-bottom: -1rem;
         }
     ` : null};    
 `
 
 const NavText = styled.span<SelectProp>`
     display: inline-block;
-    font-size: 14px;
+    font-size: 14rem;
     font-family: 'Roboto', sans-serif;
-    letter-spacing: 1.25px;
+    letter-spacing: 1.25rem;
     font-weight: 500;
     text-transform: uppercase;
     color: ${({ isSelected }) => isSelected ? COLOR.primary : COLOR.disabled};

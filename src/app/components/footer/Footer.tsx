@@ -8,7 +8,7 @@ import { FacebookIcon } from '../../../assets/svgs/FacebookIcon'
 import { TwitterIcon } from '../../../assets/svgs/TwitterIcon'
 import { SocialMediaButton } from './SocialMediaButton'
 
-const FOOTER_SIZE = '48px'
+const FOOTER_SIZE = '48rem'
 
 export function Footer() {
     const { width } = useDimensions()
@@ -23,8 +23,8 @@ export function Footer() {
             </>
                 :
                 <>
-                    <Row style={{ padding: '16px 0 8px 0' }}> {socialMediaButtons}</Row>
-                    <Row style={{ padding: '0 0 16px 0' }}><SmallText>© 2022. FaleMais App. All rights reserved</SmallText></Row>
+                    <Row style={{ padding: '16rem 0 8rem 0' }}> {socialMediaButtons}</Row>
+                    <Row style={{ padding: '0 0 16rem 0' }}><SmallText>© 2022. FaleMais App. All rights reserved</SmallText></Row>
                 </>
         }
     </Container>
@@ -35,10 +35,10 @@ const Container = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 0 32px;
+    padding: 0 32rem;
     height: fit-content;
     background-color: ${COLOR.neutral};
-    border-width: 1px 0 0 0;
+    border-width: 1rem 0 0 0;
     border-color: ${COLOR.disabledLighter};
     border-style: solid;
 
@@ -46,7 +46,7 @@ const Container = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 0 16px;
+        padding: 0 16rem;
     }
 `
 

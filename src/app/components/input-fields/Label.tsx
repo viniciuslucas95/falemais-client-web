@@ -20,10 +20,10 @@ export function Label({ isFocused, hasError = false, children }: PropsWithChildr
 
 const LabelContainer = styled.div`
     position: absolute;
-    left: 12px;
+    left: 12rem;
     top: 0;
     transform: translateY(-50%);
-    padding: 0 4px;
+    padding: 0 4rem;
     background-color: ${COLOR.neutral};
 `
 
