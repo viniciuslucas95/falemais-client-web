@@ -30,7 +30,7 @@ export function App() {
   return <BrowserRouter>
     <Routes>
       <Route path='/' element={<HomePage plans={plans} tariffs={tariffs} />} />
-      <Route path='/tariffs' element={<TariffsPage plans={plans} tariffs={tariffs} />} />
+      <Route path='/tariffs' element={<TariffsPage tariffs={tariffs} />} />
     </Routes>
   </BrowserRouter>
 }

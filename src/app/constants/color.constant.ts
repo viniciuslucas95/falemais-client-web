@@ -9,5 +9,7 @@ export const COLOR = {
     neutral: 'white',
     neutralHover: '#E9EDF4',
     neutralActive: '#D4DBE9',
-    error: '#F44336'
+    error: '#F44336',
+    errorHover: '#F55A4E',
+    errorActive: '#F66E64',
 }

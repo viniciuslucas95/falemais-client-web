@@ -6,9 +6,7 @@ import { GetTariffDto } from '../../../dto/get-tariff.dto'
 import { GetPlanDto } from '../../../dto/get-plans.dto'
 import { SelectField } from '../../../components/input-fields/SelectField'
 import { TextField } from '../../../components/input-fields/TextField'
-import { COLOR } from '../../../constants/color.constant'
-import { Subtitle2, Body2 } from '../../../components/Texts'
-import { Card } from '../../Card'
+import { CardWithTable, Column } from '../../CardWithTable'
 
 interface Props {
     plans: Omit<GetPlanDto, 'id'>[]
@@ -25,6 +23,10 @@ export function HomeCard({ className, style, plans, tariffs }: Props) {
     const [plan, setPlan] = useState<Omit<GetPlanDto, 'id'>>({ name: '', bonus: 0 })
     const { withPlan, withoutPlan } = getPricePerMin(originDdd, destinyDdd, time, plan.bonus, tariffs)
     const hasFetchedData = useRef(false)
+    const table: Column[] = [
+        { rows: [{ content: 'Com plano', key: 'Com plano' }, { content: withPlan, key: 'Com plano valor' }] },
+        { rows: [{ content: 'Sem plano', key: 'Sem plano' }, { content: withoutPlan, key: 'Sem plano valor' }] }
+    ]
 
     useEffect(() => {
         if (hasFetchedData.current) return
@@ -53,7 +55,6 @@ export function HomeCard({ className, style, plans, tariffs }: Props) {
         const selectedPlan = plans.find(plan => {
             if (plan.name === name) return plan.bonus
         })
-
         const bonus = selectedPlan ? selectedPlan.bonus : 0
 
         setPlan({
@@ -62,7 +63,7 @@ export function HomeCard({ className, style, plans, tariffs }: Props) {
         })
     }
 
-    const firstSection = <>
+    return <CardWithTable title='Veja o quanto você economiza' style={style} className={className} table={table} >
         <FieldsContainer>
             <StyledTextField label='DDD de Origem' data={originDdd} onChange={onOriginDddChange} />
             <StyledTextField label='DDD de Destino' data={destinyDdd} onChange={onDestinyDddChange} />
@@ -73,58 +74,8 @@ export function HomeCard({ className, style, plans, tariffs }: Props) {
                 onOptionChange: onPlanChange
             }} />
         </FieldsContainer>
-    </>
-
-    const secondSection = <>
-        <TitlesContainer style={{ marginTop: '32px' }}>
-            <TableTitleContainer style={{ borderRadius: '4px 0 0 0' }}>
-                <TableTitle>Com plano</TableTitle>
-            </TableTitleContainer>
-            <TableTitleContainer style={{ borderRadius: '0 4px 0 0' }}>
-                <TableTitle>Sem plano</TableTitle>
-            </TableTitleContainer>
-        </TitlesContainer>
-        <TitlesContainer>
-            <TableTextContainer style={{ borderRadius: '0 0 0 4px' }}>
-                <TableText>{withPlan}</TableText>
-            </TableTextContainer>
-            <TableTextContainer style={{ borderRadius: '0 0 4px 0' }}>
-                <TableText>{withoutPlan}</TableText>
-            </TableTextContainer>
-        </TitlesContainer>
-    </>
-
-    return <Card title='Veja o quanto você economiza' style={style} className={className} firstSection={firstSection} secondSection={secondSection} />
+    </CardWithTable>
 }
-
-const TitlesContainer = styled.div`
-    display: flex;
-    justify-content: stretch;
-`
-
-const TableTitleContainer = styled.div`
-    display: flex;
-    width: 100%;
-    align-items: center;
-    background-color: ${COLOR.primary};
-    padding: 16px;
-`
-
-const TableTitle = styled(Subtitle2)`
-    color: ${COLOR.neutral};
-`
-
-const TableTextContainer = styled.div`
-    display: flex;
-    width: 100%;
-    align-items: center;
-    background-color: ${COLOR.disabledLighter};
-    padding: 16px;
-`
-
-const TableText = styled(Body2)`
-    color: ${COLOR.mediumEmphasis};
-`
 
 const FieldsContainer = styled.div`
     display: flex;
@@ -139,7 +90,7 @@ const FieldsContainer = styled.div`
 `
 
 const StyledTextField = styled(TextField)`
-    margin: 0 0 32px 0;
+    margin: 32px 0 0 0;
     width: ${INPUT_FIELD_WIDTH + 'px'};
 
     @media screen and (max-width: 427px) {
@@ -148,7 +99,7 @@ const StyledTextField = styled(TextField)`
 `
 
 const StyledSelectField = styled(SelectField)`
-    margin: 0 0 32px 0;
+    margin: 32px 0 0 0;
     width: ${INPUT_FIELD_WIDTH + 'px'};
 
     @media screen and (max-width: 427px) {

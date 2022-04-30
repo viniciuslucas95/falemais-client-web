@@ -57,6 +57,7 @@ const StyledButton = styled.button<ButtonProps>`
     display: flex;
     height: 36px;
     padding: ${({ hasIcon, hasText }) => hasIcon && hasText ? '0 16px 0 12px' : !hasIcon && hasText ? '0 16px' : '0'};
+    justify-content: center;
     align-items: center;
     border-radius: 4px;
     border-width: 0px;
