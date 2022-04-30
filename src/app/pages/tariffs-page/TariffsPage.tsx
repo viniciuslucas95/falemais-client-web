@@ -63,7 +63,7 @@ export function TariffsPage({ tariffs }: Omit<PageProps, 'plans'>) {
     return <PageContainer>
         <Main>
             <StyledCard title='Gerenciar tarifas' table={table}>
-                <h1>test</h1>
+                <></>
             </StyledCard>
         </Main>
     </PageContainer>
