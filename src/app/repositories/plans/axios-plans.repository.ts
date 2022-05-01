@@ -1,13 +1,6 @@
-import axios from 'axios'
+import { CreatePlanDto } from "../../dto/plans/create-plans.dto";
+import { GetPlanDto } from "../../dto/plans/get-plans.dto";
+import { AxiosRepository } from "../axios-repository.repository";
 import { PlansRepository } from "./plans.repository";
-import { GetPlanDto } from "../../dto/get-plans.dto";
 
-export class AxiosPlansRepository implements PlansRepository {
-    constructor(public baseUrl: string) { }
-
-    async find(): Promise<GetPlanDto[]> {
-        const results = await axios.get<GetPlanDto[]>(this.baseUrl)
-
-        return results.data
-    }
-}
+export class AxiosPlansRepository extends AxiosRepository<GetPlanDto, CreatePlanDto> implements PlansRepository { }

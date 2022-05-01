@@ -9,12 +9,13 @@ import { ActionType, tariffsInitialState, tariffsReducer } from "./tariffs-reduc
 import { useContext, useReducer } from "react";
 import { Button } from "../../components/buttons/Button";
 import { tariffsContext } from "../../contexts/TariffsContext";
+import { CreateTariffDto } from "../../dto/tariffs/create-tariff.dto";
 
 const SIZE_TO_REMOVE_CARD = 620
 const SIZE_TO_MERGE_TABLE_COLUMNS = 430
 
 export function TariffsPage() {
-    const { tariffs } = useContext(tariffsContext)
+    const { tariffs, deleteTariff, createTariff } = useContext(tariffsContext)
     const [state, dispatch] = useReducer(tariffsReducer, tariffsInitialState)
     const { destinyDdd, originDdd, pricePerMin } = state
     const { width } = useDimensions()
@@ -62,7 +63,7 @@ export function TariffsPage() {
             const { id } = tariffs[i]
 
             column.rows.push({
-                content: <DeleteButton onClick={() => console.log('Delete id: ' + id)} />,
+                content: <DeleteButton onClick={() => deleteTariff(id)} />,
                 alignContent: 'center',
                 key: id.toString()
             })
@@ -82,6 +83,22 @@ export function TariffsPage() {
     const onDestinyDddChange = (value: string) => { onDataChange(ActionType.SET_DESTINY_DDD, value) }
     const onPricePerMinChange = (value: string) => { onDataChange(ActionType.SET_PRICE_PER_MIN, value) }
 
+    async function handleTariffCreation() {
+        const hasOriginDddError = originDdd.helpText ? originDdd.helpText.error ?? false : false
+        const hasDestinyDddError = originDdd.helpText ? originDdd.helpText.error ?? false : false
+        const hasPricePerMinErro = pricePerMin.helpText ? pricePerMin.helpText.error ?? false : false
+
+        if (hasOriginDddError || hasDestinyDddError || hasPricePerMinErro) return
+
+        const dto: CreateTariffDto = {
+            originDdd: parseInt(originDdd.value),
+            destinyDdd: parseInt(destinyDdd.value),
+            pricePerMin: parseFloat(pricePerMin.value.replace(',', '.'))
+        }
+
+        await createTariff(dto)
+    }
+
     return <PageContainer>
         <Main>
             <StyledCard
@@ -94,7 +111,7 @@ export function TariffsPage() {
                         </FieldsContainer>
                         <FieldsContainer>
                             <StyledTextField style={{ marginRight: width > SIZE_TO_MERGE_TABLE_COLUMNS ? '32px' : 0 }} label='Preço por Minuto' data={pricePerMin} onChange={onPricePerMinChange} />
-                            <StyledButton onClick={() => console.log('test')} content={{ text: 'Adicionar' }} />
+                            <StyledButton onClick={handleTariffCreation} content={{ text: 'Adicionar' }} />
                         </FieldsContainer>
                     </>
                 }

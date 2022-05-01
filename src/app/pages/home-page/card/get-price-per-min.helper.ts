@@ -1,5 +1,5 @@
 import { TextFieldData } from "../../../components/input-fields/TextField"
-import { GetTariffDto } from "../../../dto/get-tariff.dto"
+import { GetTariffDto } from "../../../dto/tariffs/get-tariff.dto"
 
 interface PlansResult {
     withPlan: string,

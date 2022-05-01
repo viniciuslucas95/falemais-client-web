@@ -1,12 +1,15 @@
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
-import { GetPlanDto } from "../dto/get-plans.dto";
+import { CreatePlanDto } from "../dto/plans/create-plans.dto";
+import { GetPlanDto } from "../dto/plans/get-plans.dto";
 import { PlansServiceFactory } from "../factories/plans-service.factory";
 
 interface Context {
     plans: GetPlanDto[]
+    deletePlan: (id: number) => Promise<void>,
+    createPlan: (dto: CreatePlanDto) => Promise<void>
 }
 
-const PlansContext = createContext<Context>({ plans: [] })
+const PlansContext = createContext<Context>({} as Context)
 
 interface Props {
     children: JSX.Element
@@ -19,17 +22,42 @@ export function PlansProvider({ children }: PropsWithChildren<Props>) {
 
     useEffect(() => {
         (async () => {
-            try {
-                const results = await plansService.find()
-                setPlans(results)
-            } catch (err) {
-                // handle error properly
-                console.error(err)
-            }
+            await getPlans()
         })()
     }, [])
 
-    return <PlansContext.Provider value={{ plans }}>
+    async function getPlans() {
+        try {
+            const results = await plansService.find()
+            setPlans(results)
+        } catch (err) {
+            // handle error properly
+            console.error(err)
+        }
+    }
+
+    async function deletePlan(id: number) {
+        try {
+            await plansService.delete(id)
+
+            setPlans(plans.filter(plan => plan.id !== id))
+        } catch (err) {
+            // handle error properly
+            console.error(err)
+        }
+    }
+
+    async function createPlan(dto: CreatePlanDto) {
+        try {
+            await plansService.create(dto)
+            await getPlans()
+        } catch (err) {
+            // handle error properly
+            console.error(err)
+        }
+    }
+
+    return <PlansContext.Provider value={{ plans, deletePlan, createPlan }}>
         {children}
     </PlansContext.Provider>
 }
