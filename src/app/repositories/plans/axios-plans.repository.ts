@@ -6,6 +6,8 @@ export class AxiosPlansRepository implements PlansRepository {
     constructor(public baseUrl: string) { }
 
     async find(): Promise<GetPlanDto[]> {
-        return await axios.get(this.baseUrl)
+        const results = await axios.get<GetPlanDto[]>(this.baseUrl)
+
+        return results.data
     }
 }

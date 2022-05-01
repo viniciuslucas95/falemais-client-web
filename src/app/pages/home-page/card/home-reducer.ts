@@ -17,13 +17,13 @@ interface TextFieldState {
     time: TextFieldData
 }
 
-export const textFieldInitialState: TextFieldState = {
+export const homeInitialState: TextFieldState = {
     destinyDdd: { value: '' },
     originDdd: { value: '' },
     time: { value: '' }
 }
 
-export function textFieldReducer(state: TextFieldState, action: TextFieldAction) {
+export function homeReducer(state: TextFieldState, action: TextFieldAction) {
     const { type, payload } = action
     const isPayloadOnlyNumbers = payload.match(/^[0-9]*$/gm)
 

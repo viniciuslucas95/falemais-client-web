@@ -1,15 +1,27 @@
-import { PageContainer, PageProps } from "../PageContainer";
+import { PageContainer } from "../PageContainer";
 import styled from "styled-components";
 import { useDimensions } from "../../hooks/useDimensions";
 import { DeleteButton } from "../components/DeleteButton";
 import { Column, Table } from "../../components/table/Table";
 import { Card } from "../components/Card";
+import { TextField } from "../../components/input-fields/TextField";
+import { ActionType, tariffsInitialState, tariffsReducer } from "./tariffs-reducer";
+import { useContext, useReducer } from "react";
+import { Button } from "../../components/buttons/Button";
+import { tariffsContext } from "../../contexts/TariffsContext";
 
 const SIZE_TO_REMOVE_CARD = 620
 const SIZE_TO_MERGE_TABLE_COLUMNS = 430
 
-export function TariffsPage({ tariffs }: Omit<PageProps, 'plans'>) {
+export function TariffsPage() {
+    const { tariffs } = useContext(tariffsContext)
+    const [state, dispatch] = useReducer(tariffsReducer, tariffsInitialState)
+    const { destinyDdd, originDdd, pricePerMin } = state
     const { width } = useDimensions()
+    const table: Column[] = [
+        getDeleteButtonColumn(),
+        ...getColumns()
+    ]
 
     function getColumns() {
         const columns: Column[] = width < SIZE_TO_MERGE_TABLE_COLUMNS ?
@@ -59,14 +71,34 @@ export function TariffsPage({ tariffs }: Omit<PageProps, 'plans'>) {
         return column
     }
 
-    const table: Column[] = [
-        getDeleteButtonColumn(),
-        ...getColumns()
-    ]
+    function onDataChange(action: ActionType, value: string) {
+        dispatch({
+            type: action,
+            payload: value
+        })
+    }
+
+    const onOriginDddChange = (value: string) => { onDataChange(ActionType.SET_ORIGIN_DDD, value) }
+    const onDestinyDddChange = (value: string) => { onDataChange(ActionType.SET_DESTINY_DDD, value) }
+    const onPricePerMinChange = (value: string) => { onDataChange(ActionType.SET_PRICE_PER_MIN, value) }
 
     return <PageContainer>
         <Main>
-            <StyledCard title='Gerenciar tarifas' firstSection={<></>} secondSection={<Table table={table} />} />
+            <StyledCard
+                title='Gerenciar tarifas'
+                firstSection={
+                    <>
+                        <FieldsContainer>
+                            <StyledTextField style={{ marginRight: width > SIZE_TO_MERGE_TABLE_COLUMNS ? '32px' : 0 }} label='DDD de Origem' data={originDdd} onChange={onOriginDddChange} />
+                            <StyledTextField label='DDD de Destino' data={destinyDdd} onChange={onDestinyDddChange} />
+                        </FieldsContainer>
+                        <FieldsContainer>
+                            <StyledTextField style={{ marginRight: width > SIZE_TO_MERGE_TABLE_COLUMNS ? '32px' : 0 }} label='Preço por Minuto' data={pricePerMin} onChange={onPricePerMinChange} />
+                            <StyledButton onClick={() => console.log('test')} content={{ text: 'Adicionar' }} />
+                        </FieldsContainer>
+                    </>
+                }
+                secondSection={<Table table={table} />} />
         </Main>
     </PageContainer>
 }
@@ -85,5 +117,33 @@ const StyledCard = styled(Card)`
     @media screen and (max-width: ${SIZE_TO_REMOVE_CARD + 'px'}){
         width: 100%;
         box-shadow: none;
+    }
+`
+
+const FieldsContainer = styled.div`
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+
+    @media screen and (max-width: ${SIZE_TO_MERGE_TABLE_COLUMNS + 'px'}) {
+        flex-direction: column;
+    }
+`
+
+const StyledTextField = styled(TextField)`
+    margin: 32rem 0 0 0;
+    width: calc(50% - 16px);
+
+    @media screen and (max-width: ${SIZE_TO_MERGE_TABLE_COLUMNS + 'px'}) {
+        width: 100%;
+    }
+`
+
+const StyledButton = styled(Button)`
+    margin: 32rem 0 0 0;
+    width: calc(50% - 16px);
+
+    @media screen and (max-width: ${SIZE_TO_MERGE_TABLE_COLUMNS + 'px'}) {
+        width: 100%;
     }
 `

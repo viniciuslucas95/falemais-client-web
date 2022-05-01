@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { ActionType, textFieldInitialState, textFieldReducer } from './text-field-reducer'
+import { ActionType, homeInitialState, homeReducer } from './home-reducer'
 import { getPricePerMin } from './get-price-per-min.helper'
 import { GetTariffDto } from '../../../dto/get-tariff.dto'
 import { GetPlanDto } from '../../../dto/get-plans.dto'
@@ -20,8 +20,8 @@ const SIZE_TO_REMOVE_CARD = 427
 const INPUT_FIELD_WIDTH = 160
 
 export function HomeCard({ className, style, plans, tariffs }: Props) {
-    const [textFieldState, textFieldDispatch] = useReducer(textFieldReducer, textFieldInitialState)
-    const { destinyDdd, originDdd, time } = textFieldState
+    const [state, dispatch] = useReducer(homeReducer, homeInitialState)
+    const { destinyDdd, originDdd, time } = state
     const [plan, setPlan] = useState<Omit<GetPlanDto, 'id'>>({ name: '', bonus: 0 })
     const { withPlan, withoutPlan } = getPricePerMin(originDdd, destinyDdd, time, plan.bonus, tariffs)
     const hasFetchedData = useRef(false)
@@ -43,7 +43,7 @@ export function HomeCard({ className, style, plans, tariffs }: Props) {
     }, [tariffs])
 
     function onDataChange(action: ActionType, value: string) {
-        textFieldDispatch({
+        dispatch({
             type: action,
             payload: value
         })

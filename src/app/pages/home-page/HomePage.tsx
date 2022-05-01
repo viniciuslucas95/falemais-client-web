@@ -3,9 +3,15 @@ import { HomeCard } from './card/HomeCard'
 import { COLOR } from '../../constants/color.constant'
 import bgImage1920 from '../../../assets/images/background-1920.png'
 import bgImage1440 from '../../../assets/images/background-1440.png'
-import { PageContainer, PageProps } from '../PageContainer'
+import { PageContainer } from '../PageContainer'
+import { useContext } from 'react'
+import { tariffsContext } from '../../contexts/TariffsContext'
+import { plansContext } from '../../contexts/PlansContext'
 
-export function HomePage({ plans, tariffs }: PageProps) {
+export function HomePage() {
+    const { tariffs } = useContext(tariffsContext)
+    const { plans } = useContext(plansContext)
+
     return <PageContainer>
         <Main>
             <TextsContainer>

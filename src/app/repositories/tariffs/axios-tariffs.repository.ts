@@ -6,6 +6,8 @@ export class AxiosTariffsRepository implements TariffsRepository {
     constructor(public baseUrl: string) { }
 
     async find(): Promise<GetTariffDto[]> {
-        return await axios.get(this.baseUrl)
+        const results = await axios.get<GetTariffDto[]>(this.baseUrl)
+
+        return results.data
     }
 }

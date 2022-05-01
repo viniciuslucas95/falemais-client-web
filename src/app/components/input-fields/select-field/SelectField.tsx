@@ -47,7 +47,7 @@ export function SelectField({ className, style, label, data }: Props) {
         {isFocused ?
             <OptionsContainer>
                 {options.map((option, index) => {
-                    return <SelectFieldButton index={index} text={option} onClick={() => {
+                    return <SelectFieldButton key={option} index={index} text={option} onClick={() => {
                         onOptionChange(option)
                         setIsFocused(false)
                     }} />

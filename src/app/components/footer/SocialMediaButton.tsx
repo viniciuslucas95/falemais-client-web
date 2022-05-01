@@ -18,4 +18,12 @@ const StyledButton = styled(Button)`
     background-color: ${COLOR.neutral};
     outline-color: ${COLOR.highEmphasis};
     width: 36rem;
+
+    :hover{
+        background-color: ${COLOR.neutral};
+    }
+
+    :active{
+        background-color: ${COLOR.neutral};
+    }
 `

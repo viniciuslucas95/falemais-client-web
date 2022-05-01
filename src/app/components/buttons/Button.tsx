@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { COLOR } from '../../constants/color.constant'
 import { Button as Text } from '../Texts'
 
-interface Content {
+export interface Content {
     text?: string | JSX.Element
     icon?: JSX.Element
 }
@@ -65,6 +65,14 @@ const StyledButton = styled.button<ButtonProps>`
     color: ${COLOR.neutral};
     outline-color: ${COLOR.highEmphasis};
     cursor: pointer;
+
+    :hover{
+        background-color: ${COLOR.primaryHover};
+    }
+
+    :active{
+        background-color: ${COLOR.primaryActive};
+    }
 `
 
 const IconContainer = styled.div<TextProps>`
