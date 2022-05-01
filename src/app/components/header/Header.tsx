@@ -1,21 +1,28 @@
 import styled, { css } from 'styled-components'
-import { COLOR } from '../constants/color.constant'
-import logo from '../../assets/images/logo.png'
-import { useDimensions } from '../hooks/useDimensions'
+import { COLOR } from '../../constants/color.constant'
+import logo from '../../../assets/images/logo.png'
+import { useDimensions } from '../../hooks/useDimensions'
 import { Link, useLocation } from "react-router-dom";
+import { MenuButton } from './MenuButton';
 
 const HEADER_SIZE = '48rem'
+const SIZE_TO_SHOW_SIDE_NAV = 426
 
-export function Header() {
+interface Props {
+    isSideNavOpen?: boolean
+    toggleSideNav: () => void
+}
+
+export function Header({ toggleSideNav, isSideNavOpen }: Props) {
     const { width } = useDimensions()
     const location = useLocation()
-
     const isSelected = (path: string) => path === location.pathname
 
     return <Container>
+        {width <= SIZE_TO_SHOW_SIDE_NAV ? <MenuButton isToggled={isSideNavOpen} onClick={toggleSideNav} /> : null}
         <Logo src={logo} alt='telzir logo' />
         {
-            width > 426 ?
+            width > SIZE_TO_SHOW_SIDE_NAV ?
                 <Nav>
                     <StyledLink to='/'><NavItem isSelected={isSelected('/')}><NavText isSelected={isSelected('/')}>Início</NavText></NavItem></StyledLink>
                     <StyledLink to='/tariffs'><NavItem style={{ margin: '0 16rem' }} isSelected={isSelected('/tariffs')}><NavText isSelected={isSelected('/tariffs')}>Tarifas</NavText></NavItem></StyledLink>
@@ -34,17 +41,27 @@ const Container = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     height: ${HEADER_SIZE};
     background-color: ${COLOR.neutral};
     padding: 0 32rem;
     border-width: 0 0 1rem 0;
     border-color: ${COLOR.disabledLighter};
     border-style: solid;
+
+    @media screen and (max-width:${SIZE_TO_SHOW_SIDE_NAV + 1 + 'px'}){
+        padding: 0;
+        justify-content: flex-start;
+    }
 `
 
 const Logo = styled.img`
     height: 36rem;
     image-rendering: optimizeQuality;
+
+    @media screen and (max-width:${SIZE_TO_SHOW_SIDE_NAV + 1 + 'px'}){
+        margin: 0 0 0 32px;
+    }
 `
 
 const Nav = styled.nav`
