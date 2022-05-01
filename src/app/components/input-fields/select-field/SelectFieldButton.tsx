@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { COLOR } from "../../constants/color.constant"
-import { Button } from "../buttons/Button"
-import { Body2 } from "../Texts"
+import { COLOR } from '../../../constants/color.constant'
+import { Body2 } from '../../Texts'
+import { Button } from '../../buttons/Button'
 
 interface Props {
     onClick: () => void
@@ -14,6 +14,7 @@ export function SelectFieldButton({ index, onClick, text }: Props) {
         content={{ text: <Body2>{text}</Body2> }}
         key={index}
         onClick={onClick}
+        style={{ justifyContent: 'flex-start' }}
     />
 }
 

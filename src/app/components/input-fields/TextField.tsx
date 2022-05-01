@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { COLOR } from '../../constants/color.constant'
 import { Caption } from '../Texts'
-import { Label } from './Label'
+import { Label } from './select-field/Label'
 
 interface TextFieldHelpText {
     text: string,

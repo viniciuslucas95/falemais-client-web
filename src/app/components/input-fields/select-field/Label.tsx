@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import styled from 'styled-components'
-import { COLOR } from '../../constants/color.constant'
-import { Caption } from '../Texts'
+import { COLOR } from '../../../constants/color.constant'
+import { Caption } from '../../Texts'
 
 interface LabelProps {
     isFocused: boolean

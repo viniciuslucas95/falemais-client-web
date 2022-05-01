@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { ExpandIcon } from '../../../assets/svgs/ExpandIcon'
-import { COLOR } from '../../constants/color.constant'
-import { Body2 } from '../Texts'
+import { ExpandIcon } from '../../../../assets/svgs/ExpandIcon'
+import { COLOR } from '../../../constants/color.constant'
+import { Body2 } from '../../Texts'
 import { Label } from './Label'
 import { SelectFieldButton } from './SelectFieldButton'
 

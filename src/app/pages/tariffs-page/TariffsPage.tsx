@@ -1,14 +1,18 @@
 import { PageContainer, PageProps } from "../PageContainer";
 import styled from "styled-components";
-import { CardWithTable, Column, Row } from "../CardWithTable";
 import { useDimensions } from "../../hooks/useDimensions";
 import { DeleteButton } from "../components/DeleteButton";
+import { Column, Table } from "../../components/table/Table";
+import { Card } from "../components/Card";
+
+const SIZE_TO_REMOVE_CARD = 620
+const SIZE_TO_MERGE_TABLE_COLUMNS = 430
 
 export function TariffsPage({ tariffs }: Omit<PageProps, 'plans'>) {
     const { width } = useDimensions()
 
     function getColumns() {
-        const columns: Column[] = width < 620 ?
+        const columns: Column[] = width < SIZE_TO_MERGE_TABLE_COLUMNS ?
             [{ rows: [{ content: 'Origem -> Destino - Preço', alignContent: 'center', key: 'Origem -> Destino - Preço' }] }] :
             [
                 { rows: [{ content: 'DDD de Origem', alignContent: 'center', key: 'DDD de Origem' }] },
@@ -20,9 +24,9 @@ export function TariffsPage({ tariffs }: Omit<PageProps, 'plans'>) {
             const { originDdd, destinyDdd, pricePerMin, id } = tariffs[i]
 
             const priceString = 'R$ ' + parseFloat(pricePerMin.toString()).toFixed(2).replace('.', ',')
-            const columnWidth = width < 427 ? '100%' : 'auto'
+            const columnWidth = width <= SIZE_TO_REMOVE_CARD ? '100%' : 'auto'
 
-            if (width < 620) {
+            if (width < SIZE_TO_MERGE_TABLE_COLUMNS) {
                 columns[0].rows.push({ content: `${originDdd.toString()} -> ${destinyDdd.toString()} - ${priceString}`, alignContent: 'center', key: id.toString() })
                 columns[0].width = columnWidth
                 continue
@@ -62,21 +66,24 @@ export function TariffsPage({ tariffs }: Omit<PageProps, 'plans'>) {
 
     return <PageContainer>
         <Main>
-            <StyledCard title='Gerenciar tarifas' table={table}>
-                <></>
-            </StyledCard>
+            <StyledCard title='Gerenciar tarifas' firstSection={<></>} secondSection={<Table table={table} />} />
         </Main>
     </PageContainer>
 }
 
 const Main = styled.main`
-    padding: 32rem;
+    padding: 32px;
 
-    @media screen and (max-width: 427px){
+    @media screen and (max-width: ${SIZE_TO_REMOVE_CARD + 'px'}){
         padding: 0;
     }
 `
 
-const StyledCard = styled(CardWithTable)`
+const StyledCard = styled(Card)`
     margin: auto;
+
+    @media screen and (max-width: ${SIZE_TO_REMOVE_CARD + 'px'}){
+        width: 100%;
+        box-shadow: none;
+    }
 `

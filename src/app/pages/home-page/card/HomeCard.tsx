@@ -1,12 +1,13 @@
 import { useEffect, useReducer, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { ActionType, textFieldInitialState, textFieldReducer } from './text-field-reducer'
-import { getPricePerMin } from './helper/get-price-per-min.helper'
+import { getPricePerMin } from './get-price-per-min.helper'
 import { GetTariffDto } from '../../../dto/get-tariff.dto'
 import { GetPlanDto } from '../../../dto/get-plans.dto'
-import { SelectField } from '../../../components/input-fields/SelectField'
 import { TextField } from '../../../components/input-fields/TextField'
-import { CardWithTable, Column } from '../../CardWithTable'
+import { SelectField } from '../../../components/input-fields/select-field/SelectField'
+import { Column, Table } from '../../../components/table/Table'
+import { Card } from '../../components/Card'
 
 interface Props {
     plans: Omit<GetPlanDto, 'id'>[]
@@ -15,7 +16,8 @@ interface Props {
     className?: string
 }
 
-const INPUT_FIELD_WIDTH = 160;
+const SIZE_TO_REMOVE_CARD = 427
+const INPUT_FIELD_WIDTH = 160
 
 export function HomeCard({ className, style, plans, tariffs }: Props) {
     const [textFieldState, textFieldDispatch] = useReducer(textFieldReducer, textFieldInitialState)
@@ -63,19 +65,31 @@ export function HomeCard({ className, style, plans, tariffs }: Props) {
         })
     }
 
-    return <CardWithTable title='Veja o quanto você economiza' style={style} className={className} table={table} >
-        <FieldsContainer>
-            <StyledTextField label='DDD de Origem' data={originDdd} onChange={onOriginDddChange} />
-            <StyledTextField label='DDD de Destino' data={destinyDdd} onChange={onDestinyDddChange} />
-            <StyledTextField label='Tempo (em minutos)' data={time} onChange={onTimeChange} />
-            <StyledSelectField label='Plano' data={{
-                options: plans.map(plan => plan.name),
-                selectedOption: plan.name,
-                onOptionChange: onPlanChange
-            }} />
-        </FieldsContainer>
-    </CardWithTable>
+    return <StyledCard
+        title='Veja o quanto você economiza'
+        style={style}
+        className={className}
+        firstSection={
+            <FieldsContainer>
+                <StyledTextField label='DDD de Origem' data={originDdd} onChange={onOriginDddChange} />
+                <StyledTextField label='DDD de Destino' data={destinyDdd} onChange={onDestinyDddChange} />
+                <StyledTextField label='Tempo (em minutos)' data={time} onChange={onTimeChange} />
+                <StyledSelectField label='Plano' data={{
+                    options: plans.map(plan => plan.name),
+                    selectedOption: plan.name,
+                    onOptionChange: onPlanChange
+                }} />
+            </FieldsContainer>
+        }
+        secondSection={<Table table={table} />} />
 }
+
+const StyledCard = styled(Card)`
+    @media screen and (max-width: 427px){
+        width: 100%;
+        box-shadow: none;
+    }
+`
 
 const FieldsContainer = styled.div`
     display: flex;
@@ -84,7 +98,7 @@ const FieldsContainer = styled.div`
     width: ${INPUT_FIELD_WIDTH * 2 + 32 + 'rem'};
     max-width: 100%;
 
-    @media screen and (max-width: 427px) {
+    @media screen and (max-width: ${SIZE_TO_REMOVE_CARD + 'px'}) {
         flex-direction: column;
     }
 `
@@ -93,7 +107,7 @@ const StyledTextField = styled(TextField)`
     margin: 32rem 0 0 0;
     width: ${INPUT_FIELD_WIDTH + 'rem'};
 
-    @media screen and (max-width: 427px) {
+    @media screen and (max-width: ${SIZE_TO_REMOVE_CARD + 'px'}) {
         width: 100%;
     }
 `
@@ -102,7 +116,7 @@ const StyledSelectField = styled(SelectField)`
     margin: 32rem 0 0 0;
     width: ${INPUT_FIELD_WIDTH + 'rem'};
 
-    @media screen and (max-width: 427px) {
+    @media screen and (max-width: ${SIZE_TO_REMOVE_CARD + 'px'}) {
         width: 100%;
     }
 `
