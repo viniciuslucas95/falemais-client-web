@@ -10,6 +10,8 @@ import { useContext, useReducer } from "react";
 import { Button } from "../../components/buttons/Button";
 import { tariffsContext } from "../../contexts/TariffsContext";
 import { CreateTariffDto } from "../../dto/tariffs/create-tariff.dto";
+import { COLOR } from "../../constants/color.constant";
+import bg from '../../../assets/images/tariffs-bg.jpg'
 
 const SIZE_TO_REMOVE_CARD = 620
 const SIZE_TO_MERGE_TABLE_COLUMNS = 430
@@ -121,15 +123,34 @@ export function TariffsPage() {
 }
 
 const Main = styled.main`
+    display: flex;
+    justify-content: flex-end;
     padding: 32px;
+    background-image: url(${bg});
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-color: ${COLOR.neutral};
 
     @media screen and (max-width: ${SIZE_TO_REMOVE_CARD + 'px'}){
         padding: 0;
+        background-image: none;
     }
 `
 
 const StyledCard = styled(Card)`
-    margin: auto;
+    margin-right: 128px;
+
+    @media screen and (max-width: 1440px){
+        margin-right: 64px;
+    }
+
+    @media screen and (max-width: 1250px){
+        margin-right: 32px;
+    }
+
+    @media screen and (max-width: 1000px){
+        margin: auto;
+    }
 
     @media screen and (max-width: ${SIZE_TO_REMOVE_CARD + 'px'}){
         width: 100%;

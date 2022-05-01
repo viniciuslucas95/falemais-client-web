@@ -10,6 +10,8 @@ import { useContext, useReducer } from "react";
 import { Button } from "../../components/buttons/Button";
 import { plansContext } from "../../contexts/PlansContext";
 import { CreatePlanDto } from "../../dto/plans/create-plans.dto";
+import bg from '../../../assets/images/plans-bg.png'
+import { COLOR } from "../../constants/color.constant";
 
 const SIZE_TO_REMOVE_CARD = 432
 const SIZE_TO_MERGE_TABLE_COLUMNS = 390
@@ -110,6 +112,11 @@ export function PlansPage() {
 
 const Main = styled.main`
     padding: 32px;
+    display: flex;
+    background-image: url(${bg});
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-color: ${COLOR.neutral};
 
     @media screen and (max-width: ${SIZE_TO_REMOVE_CARD + 'px'}){
         padding: 0;
@@ -117,7 +124,19 @@ const Main = styled.main`
 `
 
 const StyledCard = styled(Card)`
-    margin: auto;
+    margin-left: 128px;
+
+    @media screen and (max-width: 1440px){
+        margin-left: 64px;
+    }
+
+    @media screen and (max-width: 1250px){
+        margin-left: 32px;
+    }
+
+    @media screen and (max-width: 850px){
+        margin: auto;
+    }
 
     @media screen and (max-width: ${SIZE_TO_REMOVE_CARD + 'px'}){
         width: 100%;
