@@ -30,7 +30,7 @@ export function Footer() {
     </Container>
 }
 
-const Container = styled.div`
+const Container = styled.footer`
     position: relative;
     display: flex;
     justify-content: flex-end;
