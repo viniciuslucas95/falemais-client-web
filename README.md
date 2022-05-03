@@ -4,4 +4,4 @@
 <p>1. Setup the server first.</p>
 <p>2. Install all the packages with "npm install".</p>
 <p>3. Start the client on dev mode with "npm run dev".</p>
-<p>4. It's done. Open your browser at http://localhost:3000/ address.</p>
+<p>4. It's done. Open your browser at <a href="http://localhost:3000/">localhost</a> address.</p>
